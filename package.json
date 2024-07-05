@@ -16,6 +16,8 @@
   },
   "devDependencies": {
     "postcss": "^8.4.39",
-    "postcss-nested": "^6.0.1"
-  }
+    "postcss-nested": "^6.0.1",
+    "vite-plugin-handlebars": "^2.0.0"
+  },
+  "type": "module"
 }
