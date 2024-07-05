@@ -1,0 +1,7 @@
+<link rel="stylesheet" href="/partials/styles/card_partial.css" />
+<div class="card">
+    <h1 class="card__title">{{title}}</h1>
+    {{#each fields}}
+        {{>input_partial input-name=this.name input-class=this.class}}
+    {{/each}}
+</div>
