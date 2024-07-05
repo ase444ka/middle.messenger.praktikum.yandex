@@ -13,5 +13,9 @@
   "dependencies": {
     "normalize.css": "^8.0.1",
     "vite": "^5.3.3"
+  },
+  "devDependencies": {
+    "postcss": "^8.4.39",
+    "postcss-nested": "^6.0.1"
   }
 }
