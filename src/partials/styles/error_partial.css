@@ -1,0 +1,20 @@
+.error-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--black);
+    &__status {
+        font-size: 2.5rem;
+    }
+    &__message {
+        font-size: 1.25rem;
+    }
+    &__link {
+        color: var(--blue);
+        margin-top: 4rem;
+        font-size: 0.8rem;
+        text-decoration: none;
+    }
+}
