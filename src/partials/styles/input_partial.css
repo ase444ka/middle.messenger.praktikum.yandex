@@ -1,5 +1,16 @@
 .input {
     &__label {
-        color: green;
+        color: var(--grey-1);
+        font-size: 0.7rem;
+        text-transform: capitalize;
+    }
+    &__wrapper {
+        border-bottom: 2px solid var(--blue)
+    }
+    &__input {
+        outline: none;
+        border: none;
+        padding: 0.7rem 0;
+
     }
 }
