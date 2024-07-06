@@ -4,4 +4,10 @@
     {{#each fields}}
         {{>input_partial input-name=this.name input-class=this.class}}
     {{/each}}
+    <div class="card__buttons">
+        {{#each buttons}}
+            {{>button_partial title=this.title var=this.var action=this.action}}
+        {{/each}}
+    </div>
+    
 </div>

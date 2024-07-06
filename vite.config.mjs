@@ -9,6 +9,10 @@ const pageData = {
     fields: [
       {name: 'имя', class: ''},
       {name: 'пароль', class: 'input_simple'},
+  ],
+  buttons: [
+    {title: 'авторизация', var: 'primary', action: 'alert("trololo")'},
+    {title: 'нет аккаунта?', var: 'secondary', action: 'alert("trololo")'},
   ]
   },
   '/pages/signup_page/index.html': {
@@ -21,6 +25,10 @@ const pageData = {
       {name: 'телефон', class: 'input_simple'},
       {name: 'пароль', class: 'input_simple'},
       {name: 'пароль (ещё раз)', class: 'input_simple'},
+  ],
+  buttons: [
+    {title: 'зарегистрироваться', var: 'primary', action: 'alert("trololo")'},
+    {title: 'войти', var: 'secondary', action: 'alert("trololo")'},
   ]
   },
 };
