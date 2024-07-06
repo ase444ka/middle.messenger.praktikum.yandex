@@ -8,7 +8,19 @@ const pageData = {
     title: 'Вход',
     fields: [
       {name: 'имя', class: ''},
+      {name: 'пароль', class: 'input_simple'},
+  ]
+  },
+  '/pages/signup_page/index.html': {
+    title: 'Регистрация',
+    fields: [
+      {name: 'почта', class: 'input_simple'},
+      {name: 'логин', class: 'input_simple'},
+      {name: 'имя', class: ''},
       {name: 'фамилия', class: 'input_simple'},
+      {name: 'телефон', class: 'input_simple'},
+      {name: 'пароль', class: 'input_simple'},
+      {name: 'пароль (ещё раз)', class: 'input_simple'},
   ]
   },
 };
