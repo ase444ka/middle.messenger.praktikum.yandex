@@ -1,8 +1,26 @@
 @import 'normalize.css';
 @import '/assets/fonts/fonts.css';
 
+:root {
+    --white: #ffffff;
+    --black: #1E1E1E;
+    --red: #FF2F2F;
+    --blue: #3369F3;
+    --light-blue: #E4EDFD;
+    --grey-1: #999999;
+    --grey-2: #EAEAEA;
+    --grey-3: #EFEFEF;
+    --grey-4: #F8F8F8;
+    --grey-5: #FBFBFB;
+
+    --error: var(--red);
+    --success: var(--blue);
+
+    --primary: var(--blue);
+}
+
 * {
-    font-family: 'Inter';
+    font-family: 'Inter', sans-serif;
     font-style: normal;
     font-weight: 500;
 }
