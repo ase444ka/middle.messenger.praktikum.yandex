@@ -5,7 +5,7 @@ import handlebars from 'vite-plugin-handlebars';
 
 const pageData = {
   '/pages/signin_page/index.html': {
-    title: 'Авторизация',
+    title: 'Вход',
     fields: [
       {name: 'имя', class: ''},
       {name: 'фамилия', class: 'input_simple'},
