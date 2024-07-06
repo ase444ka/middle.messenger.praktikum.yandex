@@ -6,9 +6,10 @@ import handlebars from 'vite-plugin-handlebars';
 const pageData = {
   '/pages/signin_page/index.html': {
     title: 'Вход',
+    class: 'input_at_auth',
     fields: [
-      {name: 'имя', class: ''},
-      {name: 'пароль', class: 'input_simple'},
+      {name: 'имя'},
+      {name: 'пароль'},
   ],
   buttons: [
     {title: 'авторизация', var: 'primary', action: 'alert("trololo")'},
@@ -17,14 +18,15 @@ const pageData = {
   },
   '/pages/signup_page/index.html': {
     title: 'Регистрация',
+    class: 'input_at_auth',
     fields: [
-      {name: 'почта', class: 'input_simple'},
-      {name: 'логин', class: 'input_simple'},
-      {name: 'имя', class: ''},
-      {name: 'фамилия', class: 'input_simple'},
-      {name: 'телефон', class: 'input_simple'},
-      {name: 'пароль', class: 'input_simple'},
-      {name: 'пароль (ещё раз)', class: 'input_simple'},
+      {name: 'почта'},
+      {name: 'логин'},
+      {name: 'имя'},
+      {name: 'фамилия'},
+      {name: 'телефон'},
+      {name: 'пароль'},
+      {name: 'пароль (ещё раз)', type: 'password'},
   ],
   buttons: [
     {title: 'зарегистрироваться', var: 'primary', action: 'alert("trololo")'},
