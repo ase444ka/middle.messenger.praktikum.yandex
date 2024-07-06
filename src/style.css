@@ -1,4 +1,11 @@
 @import 'normalize.css';
+@import '/assets/fonts/fonts.css';
+
+* {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+}
 
 .test {
     color: red;
