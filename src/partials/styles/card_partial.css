@@ -32,6 +32,25 @@
     
         }
     }
+    .button {
+        display: block;
+        text-align: center;
+        padding: 1rem;
+        text-transform: capitalize;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        width: 100%;
+        cursor: pointer;
+        &_primary {
+            color: var(--white);
+            background-color: var(--blue);
+        }
+        &_secondary {
+            color: var(--blue);
+            background-color: var(--white);
+        }
+    }
 
 
 }

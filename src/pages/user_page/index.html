@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,9 +9,21 @@
     <link rel="stylesheet" href="style.css">
     <title>данные пользователя</title>
 </head>
+
 <body>
-   <h1>Страница пользователя</h1>
-   {{> input_partial input-name="имя"}}
-   {{resolve_from_root}}
+    <div class="userdata">
+        <div class="userdata__avatar">
+            <img src="/assets/images/ava.png" alt="avatar" class="userdata__avatar-image">
+        </div>
+        <h1 class="userdata__title">{{name}}</h1>
+        {{#each fields}}
+        {{>input_partial input-name=this.name input-class="userdata__input" type=this.type value=this.value}}
+        {{/each}}
+        {{#each buttons}}
+            {{>button_partial title=this.title var=this.var action=this.action}}
+        {{/each}}
+    </div>
+
 </body>
+
 </html>

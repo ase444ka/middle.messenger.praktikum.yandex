@@ -2,11 +2,11 @@ import {resolve} from 'path'
 import { defineConfig } from 'vite'
 import postcssNesting from 'postcss-nested'
 import handlebars from 'vite-plugin-handlebars';
+import user from './src/data/user.js'
 
 const pageData = {
   '/pages/signin_page/index.html': {
     title: 'Вход',
-    class: 'input_at_auth',
     fields: [
       {name: 'имя'},
       {name: 'пароль'},
@@ -18,7 +18,6 @@ const pageData = {
   },
   '/pages/signup_page/index.html': {
     title: 'Регистрация',
-    class: 'input_at_auth',
     fields: [
       {name: 'почта'},
       {name: 'логин'},
@@ -31,6 +30,24 @@ const pageData = {
   buttons: [
     {title: 'зарегистрироваться', var: 'primary', action: 'alert("trololo")'},
     {title: 'войти', var: 'secondary', action: 'alert("trololo")'},
+  ]
+  },
+  '/pages/user_page/index.html': {
+    readonly: true,
+    cursor: 'default',
+    name: user.name,
+    fields: [
+      {name: 'Почта', value: user.email},
+      {name: 'Логин', value: user.username},
+      {name: 'Имя', value: user.name},
+      {name: 'Фамилия', value: user.surname},
+      {name: 'Имя в чате', value: user.nik},
+      {name: 'Телефон', value: user.phone},
+  ],
+  buttons: [
+    {title: 'Изменить данные', var: 'primary', action: 'alert("trololo")'},
+    {title: 'Изменить пароль', var: 'primary', action: 'alert("trololo")'},
+    {title: 'Выйти', var: 'danger', action: 'alert("trololo")'},
   ]
   },
 };
