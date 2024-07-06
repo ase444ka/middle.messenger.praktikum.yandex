@@ -14,6 +14,10 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'src/index.html'),
         user: resolve(__dirname, 'src/pages/user_page/index.html'),
+        page404: resolve(__dirname, 'src/pages/404_page/index.html'),
+        page500: resolve(__dirname, 'src/pages/500_page/index.html'),
+        signin: resolve(__dirname, 'src/pages/signin_page/index.html'),
+        signup: resolve(__dirname, 'src/pages/signup_page/index.html'),
       },
     },
   },
