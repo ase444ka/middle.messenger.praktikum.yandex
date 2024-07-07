@@ -18,6 +18,7 @@ export default defineConfig({
         page500: resolve(__dirname, 'src/pages/500_page/index.html'),
         signin: resolve(__dirname, 'src/pages/signin_page/index.html'),
         signup: resolve(__dirname, 'src/pages/signup_page/index.html'),
+        chats: resolve(__dirname, 'src/pages/chats_page/index.html'),
       },
     },
   },
