@@ -28,5 +28,8 @@
   "type": "module",
   "lint-staged": {
     "*.{js,css,md}": "prettier --write"
+  },
+  "engines": {
+    "node": ">=18"
   }
 }
