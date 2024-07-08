@@ -1,6 +1,7 @@
 import {resolve} from 'path';
 import {defineConfig} from 'vite';
 import postcssNesting from 'postcss-nested';
+import postcssMixins from 'postcss-mixins';
 import handlebars from 'vite-plugin-handlebars';
 import pageData from './src/data/user.js';
 
@@ -35,7 +36,7 @@ export default defineConfig({
   },
   css: {
     postcss: {
-      plugins: [postcssNesting],
+      plugins: [postcssMixins, postcssNesting],
     },
   },
 });
