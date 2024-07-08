@@ -6,6 +6,65 @@ const user = {
     nik: 'Ася',
     phone: '+7-981-911-58-79',
 }
+
+const chatList = [
+  {
+    name: 'Маша',
+    isYours: false,
+    counter: 3,
+    chatLast: 'очень здорово! давай так и сделаем',
+    chatDate: '14:09',
+  },
+  {
+    name: 'дружок',
+    isYours: false,
+    counter: 0,
+    chatLast: 'зачем???',
+    chatDate: 'вчера',
+  },
+  {
+    name: 'поддержка озона',
+    isYours: false,
+    counter: 3,
+    chatLast: 'мы сожалеем, что товар не оправдал ваших ожиданий.',
+    chatDate: 'ср',
+  },
+  {
+    name: 'Семен Викторович',
+    isYours: true,
+    counter: 0,
+    chatLast: 'да уж.. странно..',
+    chatDate: 'вт',
+  },
+  {
+    name: 'злой бот',
+    isYours: false,
+    counter: 3,
+    chatLast: 'все будет ПЛОХО ПЛОХО ПЛОХООО',
+    chatDate: 'пн',
+  },
+  {
+    name: 'луна моей жизни',
+    isYours: false,
+    counter: 10,
+    chatLast: 'ах!',
+    chatDate: 'вс',
+  },
+  {
+    name: 'анонимус',
+    isYours: true,
+    counter: 0,
+    chatLast: 'что?',
+    chatDate: 'вс',
+  },
+  {
+    name: 'Андрюха',
+    isYours: false,
+    counter: 20,
+    chatLast: 'хахахахахахххх',
+    chatDate: 'сб',
+  },
+]
 export default {
     '/pages/signin_page/index.html': {
       title: 'Вход',
@@ -49,4 +108,7 @@ export default {
         {title: 'Выйти', var: 'danger', action: 'alert("trololo")'},
       ],
     },
+    '/pages/chats_page/index.html': {
+      chatList,
+    }
   };
