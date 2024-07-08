@@ -70,7 +70,7 @@ export default {
     title: 'Вход',
     fields: [
       { name: 'логин', fieldName: 'login' },
-      { name: 'пароль', fieldName: 'password' },
+      { name: 'пароль', fieldName: 'password', type: 'password' },
     ],
     buttons: [
       { title: 'авторизация', var: 'primary', action: 'alert("trololo")' },
