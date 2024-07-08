@@ -36,7 +36,8 @@ export default defineConfig({
   },
   css: {
     postcss: {
-      plugins: [postcssMixins, postcssNesting],
+      plugins: [postcssMixins({ mixinsDir: resolve(__dirname, 'src')
+    }), postcssNesting],
     },
   },
 });

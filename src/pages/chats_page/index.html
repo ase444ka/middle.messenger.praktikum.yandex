@@ -26,19 +26,38 @@
                 <input class="chat-page__search__input" placeholder="Поиск"></input>
             </div>
             {{#each chatList}}
-                {{>chat-list_partial
-                    name=this.name
-                    isYours=this.isYours
-                    counter=this.counter
-                    chatLast=this.chatLast
-                    chatDate=this.chatDate
-                }}
+            {{>chat-list_partial
+            name=this.name
+            isYours=this.isYours
+            counter=this.counter
+            chatLast=this.chatLast
+            chatDate=this.chatDate
+            }}
             {{/each}}
         </nav>
         <main class="chat-page__content">
-            <h3 class="chat-page__title"></h3>
-            <div class="chat-page__chat"></div>
-            <form class="chat-page__form"></form>
+            <div class="chat-page__title">
+                <div class="chat-page__title__avatar"></div>
+                <h3 class="chat-page__title__header">Семен Викторович</h3>
+                <button class="chat-page__title__button">...</h3>
+            </div>
+            <div class="chat-page__chat">sdfgsdfg</div>
+            <form class="chat-page__form">
+                <label for="chat-page__form__attachment" class="chat-page__form__attachment">
+                    <input type="file" id="chat-page__form__attachment">
+                    <div class="chat-page__form__attachment__control">
+                        <svg>
+                            <use href="/assets/images/sprites.svg#attachment"></use>
+                        </svg>
+                    </div>
+                </label>
+                <input type="text" class="chat-page__form__message" placeholder="Сообщение"/>
+                <button type="submit" class="chat-page__form__submit">
+                    <svg>
+                        <use href="/assets/images/sprites.svg#arrow-right"></use>
+                    </svg>
+                </button>
+            </form>
         </main>
     </div>
 </body>

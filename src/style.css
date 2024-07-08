@@ -1,30 +1,56 @@
 @import 'normalize.css';
 @import '/assets/fonts/fonts.css';
 
+@define-mixin avatar {
+  border-radius: 50px;
+  background: var(--grey-2);
+}
+@define-mixin chatname {
+  color: var(--black);
+  font-weight: Bold;
+}
+
+@define-mixin chatgrid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+@define-mixin chatinput {
+  background: var(--grey-4);
+  outline: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  &::placeholder {
+    color: var(--grey-1);
+  }
+}
+
 :root {
-    --white: #ffffff;
-    --black: #1E1E1E;
-    --red: #FF2F2F;
-    --blue: #3369F3;
-    --light-blue: #E4EDFD;
-    --grey-1: #999999;
-    --grey-2: #EAEAEA;
-    --grey-3: #EFEFEF;
-    --grey-4: #F8F8F8;
-    --grey-5: #FBFBFB;
+  --white: #ffffff;
+  --black: #1e1e1e;
+  --red: #ff2f2f;
+  --blue: #3369f3;
+  --light-blue: #e4edfd;
+  --grey-1: #999999;
+  --grey-2: #eaeaea;
+  --grey-3: #efefef;
+  --grey-4: #f8f8f8;
+  --grey-5: #fbfbfb;
 
-    --error: var(--red);
-    --success: var(--blue);
-
-    --primary: var(--blue);
+  --error: var(--red);
+  --success: var(--blue);
+  --primary: var(--blue);
 }
 
 * {
-    font-family: 'Inter', sans-serif;
-    font-style: normal;
-    font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
 }
 
 .test {
-    color: red;
+  color: red;
 }
