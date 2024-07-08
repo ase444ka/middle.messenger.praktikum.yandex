@@ -68,7 +68,10 @@ const chatList = [
 export default {
   '/pages/signin_page/index.html': {
     title: 'Вход',
-    fields: [{ name: 'имя' }, { name: 'пароль' }],
+    fields: [
+      { name: 'логин', fieldName: 'login' },
+      { name: 'пароль', fieldName: 'password' },
+    ],
     buttons: [
       { title: 'авторизация', var: 'primary', action: 'alert("trololo")' },
       { title: 'нет аккаунта?', var: 'secondary', action: 'alert("trololo")' },
@@ -77,12 +80,11 @@ export default {
   '/pages/signup_page/index.html': {
     title: 'Регистрация',
     fields: [
-      { name: 'почта' },
-      { name: 'логин' },
-      { name: 'имя' },
-      { name: 'фамилия' },
-      { name: 'телефон' },
-      { name: 'пароль' },
+      { name: 'логин', fieldName: 'login' },
+      { name: 'имя', fieldName: 'first_name' },
+      { name: 'фамилия', fieldName: 'second_name' },
+      { name: 'телефон', fieldName: 'phone' },
+      { name: 'пароль', fieldName: 'password', type: 'password' },
       { name: 'пароль (ещё раз)', type: 'password' },
     ],
     buttons: [
@@ -99,12 +101,12 @@ export default {
     cursor: 'default',
     name: user.name,
     fields: [
-      { name: 'Почта', value: user.email },
-      { name: 'Логин', value: user.username },
-      { name: 'Имя', value: user.name },
-      { name: 'Фамилия', value: user.surname },
-      { name: 'Имя в чате', value: user.nik },
-      { name: 'Телефон', value: user.phone },
+      { name: 'Почта', value: user.email, fieldName: 'email' },
+      { name: 'Логин', value: user.username, fieldName: 'login' },
+      { name: 'Имя', value: user.name, fieldName: 'first_name' },
+      { name: 'Фамилия', value: user.surname, fieldName: 'second_name' },
+      { name: 'Имя в чате', value: user.nik, fieldName: 'display_name' },
+      { name: 'Телефон', value: user.phone, fieldName: 'phone' },
     ],
     buttons: [
       { title: 'Изменить данные', var: 'primary', action: 'alert("trololo")' },

@@ -2,7 +2,7 @@
 <div class="card">
     <h1 class="card__title">{{title}}</h1>
     {{#each fields}}
-        {{>input_partial input-name=this.name input-class="card__input" type=this.type}}
+        {{>input_partial input-name=this.name input-class="card__input" type=this.type field-name=this.fieldName}}
     {{/each}}
     <div class="card__buttons">
         {{#each buttons}}
