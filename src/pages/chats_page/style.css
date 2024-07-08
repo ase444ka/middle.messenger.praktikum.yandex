@@ -101,6 +101,7 @@
     }
     &__input {
       @mixin chatinput;
+      border-radius: 5px;
       width: calc(50% + 30px);
     }
     &__icon {
@@ -139,6 +140,56 @@
   &__chat {
     display: flex;
     flex-direction: column;
+    gap: 10px;
+    &__date {
+      font-size: 0.8rem;
+      align-self: center;
+      color: var(--grey-1);
+      margin-top: 40px;
+      margin-bottom: 10px;
+    }
+    &__message {
+      color: var(--black);
+      font-size: 0.8rem;
+      padding: 1rem;
+      border-radius: 10px;
+      background: var(--grey-3);
+      width: 40%;
+      flex-grow: 0;
+      &_image {
+        padding: 0;
+        border: 1px solid var(--grey-2);
+        img {
+          object-fit: contain;
+        }
+      }
+      &_yours {
+        align-self: end;
+        background: var(--light-blue);
+        border-bottom-right-radius: 0px;
+      }
+    }
+    &__additional {
+      margin-right: 0;
+      margin-left: auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.6rem;
+      color: var(--grey-1);
+    }
+    &__baige {
+      width: 10px;
+      height: 5px;
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+      &_seen {
+        color: var(--blue);
+      }
+    }
   }
   &__form {
     border-top: 1px solid var(--grey-3);
