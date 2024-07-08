@@ -1,17 +1,15 @@
 @font-face {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: regular;
-  
-    src: local("Inter"),
-         url("inter/Inter-Medium.ttf") 
-  }
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: regular;
 
-  @font-face {
-    font-family: "Inter";
-    font-style: normal;
-    font-weight: bold;
-  
-    src: local("Inter"),
-         url("inter/Inter-SemiBold.ttf") 
-  }
+  src: local('Inter'), url('inter/Inter-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: bold;
+
+  src: local('Inter'), url('inter/Inter-SemiBold.ttf');
+}

@@ -1,11 +1,9 @@
-import {resolve} from 'path';
-import {defineConfig} from 'vite';
-import postcssNesting from 'postcss-nested';
-import postcssMixins from 'postcss-mixins';
-import handlebars from 'vite-plugin-handlebars';
-import pageData from './src/data/user.js';
-
-
+import { resolve } from 'path'
+import { defineConfig } from 'vite'
+import postcssNesting from 'postcss-nested'
+import postcssMixins from 'postcss-mixins'
+import handlebars from 'vite-plugin-handlebars'
+import pageData from './src/data/user.js'
 
 export default defineConfig({
   root: resolve(__dirname, 'src'),
@@ -27,7 +25,7 @@ export default defineConfig({
     handlebars({
       partialDirectory: resolve(__dirname, 'src/partials'),
       context(pagePath) {
-        return pageData[pagePath];
+        return pageData[pagePath]
       },
     }),
   ],
@@ -36,8 +34,10 @@ export default defineConfig({
   },
   css: {
     postcss: {
-      plugins: [postcssMixins({ mixinsDir: resolve(__dirname, 'src')
-    }), postcssNesting],
+      plugins: [
+        postcssMixins({ mixinsDir: resolve(__dirname, 'src') }),
+        postcssNesting,
+      ],
     },
   },
-});
+})
