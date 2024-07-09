@@ -1,13 +1,15 @@
 <link rel="stylesheet" href="/partials/styles/card_partial.css" />
 <div class="card">
     <h1 class="card__title">{{title}}</h1>
-    {{#each fields}}
-        {{>input_partial input-name=this.name input-class="card__input" type=this.type field-name=this.fieldName}}
-    {{/each}}
-    <div class="card__buttons">
-        {{#each buttons}}
-            {{>button_partial title=this.title var=this.var action=this.action}}
+    <form>
+        {{#each fields}}
+            {{>input_partial input-name=this.name input-class="card__input" type=this.type field-name=this.fieldName}}
         {{/each}}
-    </div>
+        <div class="card__buttons">
+            {{#each buttons}}
+                {{>button_partial title=this.title var=this.var action=this.action}}
+            {{/each}}
+        </div>
+    </form>
     
 </div>
