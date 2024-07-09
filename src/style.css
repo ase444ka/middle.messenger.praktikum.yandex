@@ -55,3 +55,25 @@
 .test {
   color: red;
 }
+
+.reference-page {
+  &__title {
+    text-align: center;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 0 20px;
+  }
+  &__item {
+    list-style-type: none;
+  }
+
+  &__ref {
+    text-decoration: none;
+    color: green;
+    font-size: 20px;
+  }
+}
