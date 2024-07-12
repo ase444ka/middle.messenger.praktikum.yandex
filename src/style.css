@@ -1,0 +1,79 @@
+@import 'normalize.css';
+@import '/assets/fonts/fonts.css';
+
+@define-mixin avatar {
+  border-radius: 50px;
+  background: var(--grey-2);
+}
+@define-mixin chatname {
+  color: var(--black);
+  font-weight: Bold;
+}
+
+@define-mixin chatgrid {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+}
+
+@define-mixin chatinput {
+  background: var(--grey-3);
+  outline: none;
+  border: none;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  &::placeholder {
+    color: var(--grey-1);
+  }
+}
+
+:root {
+  --white: #ffffff;
+  --black: #1e1e1e;
+  --red: #ff2f2f;
+  --blue: #3369f3;
+  --light-blue: #e4edfd;
+  --grey-1: #999999;
+  --grey-2: #eaeaea;
+  --grey-3: #efefef;
+  --grey-4: #f8f8f8;
+  --grey-5: #fbfbfb;
+
+  --error: var(--red);
+  --success: var(--blue);
+  --primary: var(--blue);
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+.test {
+  color: red;
+}
+
+.reference-page {
+  &__title {
+    text-align: center;
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin: 0 20px;
+  }
+  &__item {
+    list-style-type: none;
+  }
+
+  &__ref {
+    text-decoration: none;
+    color: green;
+    font-size: 20px;
+  }
+}

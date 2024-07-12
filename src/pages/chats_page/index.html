@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/svg+xml" href="/assets/images/icon.svg" />
+    <title>чаты</title>
+</head>
+
+<body>
+    <div class="chat-page">
+        <nav class="chat-page__nav">
+            <button class="chat-page__tosettings">
+                <span>Профиль</span>
+                <svg class="chat-page__tosettings__icon">
+                    <use href="/assets/images/sprites.svg#right"></use>
+                </svg>
+            </button>
+            <div class="chat-page__search">
+                <svg class="chat-page__search__icon">
+                    <use href="/assets/images/sprites.svg#magnify"></use>
+                </svg>
+                <input class="chat-page__search__input" placeholder="Поиск"></input>
+            </div>
+            {{#each chatList}}
+            {{>chat-list_partial
+            name=this.name
+            isYours=this.isYours
+            counter=this.counter
+            chatLast=this.chatLast
+            chatDate=this.chatDate
+            }}
+            {{/each}}
+        </nav>
+        <main class="chat-page__content">
+            <div class="chat-page__title">
+                <div class="chat-page__title__avatar"></div>
+                <h3 class="chat-page__title__header">Семен Викторович</h3>
+                <button class="chat-page__title__button">...</h3>
+            </div>
+            <div class="chat-page__chat">
+                <div class="chat-page__chat__date">20 июня</div>
+                <div class="chat-page__chat__message">
+                    Посмотри, пожалуйста, отступы не просуммировались у марджинов
+                    <div class="chat-page__chat__additional">
+                        <span class="chat-page__chat__time">11:30</span>
+
+                    </div>
+                </div>
+                <div class="chat-page__chat__message chat-page__chat__message_image">
+                    <img src="/assets/images/m.png" alt="printscreen"/>
+                    <div class="chat-page__chat__additional">
+                        <span class="chat-page__chat__time">11:30</span>
+
+                    </div>
+                </div>
+                <div class="chat-page__chat__message chat-page__chat__message_yours">
+                    да уж.. странно
+                    <div class="chat-page__chat__additional">
+                        <div class="chat-page__chat__baige chat-page__chat__baige_seen">
+                            <svg>
+                                <use href="/assets/images/sprites.svg#seen"></use>
+                            </svg>
+                        </div>
+                        <span class="chat-page__chat__time">12:00</span>
+
+                    </div>
+                    
+                </div>
+            </div>
+            <form class="chat-page__form">
+                <label for="chat-page__form__attachment" class="chat-page__form__attachment">
+                    <input type="file" id="chat-page__form__attachment">
+                    <div class="chat-page__form__attachment__control">
+                        <svg>
+                            <use href="/assets/images/sprites.svg#attachment"></use>
+                        </svg>
+                    </div>
+                </label>
+                <input type="text" class="chat-page__form__message" name="message" placeholder="Сообщение"/>
+                <button type="submit" class="chat-page__form__submit">
+                    <svg>
+                        <use href="/assets/images/sprites.svg#arrow-right"></use>
+                    </svg>
+                </button>
+            </form>
+        </main>
+    </div>
+</body>
+
+</html>
+
