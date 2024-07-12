@@ -65,7 +65,7 @@ const chatList = [
     chatDate: 'сб',
   },
 ]
-export default {
+const pageData : {[key :string]: object} = {
   '/pages/signin_page/index.html': {
     title: 'Вход',
     fields: [
@@ -118,3 +118,6 @@ export default {
     chatList,
   },
 }
+
+
+export default pageData
