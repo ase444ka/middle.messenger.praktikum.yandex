@@ -65,27 +65,27 @@ const chatList = [
     chatDate: 'сб',
   },
 ]
-const pageData : {[key :string]: object} = {
+const pageData: {[key: string]: object} = {
   '/pages/signin_page/index.html': {
     title: 'Вход',
     fields: [
-      { name: 'логин', fieldName: 'login' },
-      { name: 'пароль', fieldName: 'password', type: 'password' },
+      {name: 'логин', fieldName: 'login'},
+      {name: 'пароль', fieldName: 'password', type: 'password'},
     ],
     buttons: [
-      { title: 'авторизация', var: 'primary', action: 'alert("trololo")' },
-      { title: 'нет аккаунта?', var: 'secondary', action: 'alert("trololo")' },
+      {title: 'авторизация', var: 'primary', action: 'alert("trololo")'},
+      {title: 'нет аккаунта?', var: 'secondary', action: 'alert("trololo")'},
     ],
   },
   '/pages/signup_page/index.html': {
     title: 'Регистрация',
     fields: [
-      { name: 'логин', fieldName: 'login' },
-      { name: 'имя', fieldName: 'first_name' },
-      { name: 'фамилия', fieldName: 'second_name' },
-      { name: 'телефон', fieldName: 'phone' },
-      { name: 'пароль', fieldName: 'password', type: 'password' },
-      { name: 'пароль (ещё раз)', type: 'password' },
+      {name: 'логин', fieldName: 'login'},
+      {name: 'имя', fieldName: 'first_name'},
+      {name: 'фамилия', fieldName: 'kjkjkjkj'},
+      {name: 'телефон', fieldName: 'phone'},
+      {name: 'пароль', fieldName: 'password', type: 'password'},
+      {name: 'пароль (ещё раз)', type: 'password'},
     ],
     buttons: [
       {
@@ -93,7 +93,7 @@ const pageData : {[key :string]: object} = {
         var: 'primary',
         action: 'alert("trololo")',
       },
-      { title: 'войти', var: 'secondary', action: 'alert("trololo")' },
+      {title: 'войти', var: 'secondary', action: 'alert("trololo")'},
     ],
   },
   '/pages/user_page/index.html': {
@@ -101,23 +101,22 @@ const pageData : {[key :string]: object} = {
     cursor: 'default',
     name: user.name,
     fields: [
-      { name: 'Почта', value: user.email, fieldName: 'email' },
-      { name: 'Логин', value: user.username, fieldName: 'login' },
-      { name: 'Имя', value: user.name, fieldName: 'first_name' },
-      { name: 'Фамилия', value: user.surname, fieldName: 'second_name' },
-      { name: 'Имя в чате', value: user.nik, fieldName: 'display_name' },
-      { name: 'Телефон', value: user.phone, fieldName: 'phone' },
+      {name: 'Почта', value: user.email, fieldName: 'email'},
+      {name: 'Логин', value: user.username, fieldName: 'login'},
+      {name: 'Имя', value: user.name, fieldName: 'first_name'},
+      {name: 'Фамилия', value: user.surname, fieldName: 'second_name'},
+      {name: 'Имя в чате', value: user.nik, fieldName: 'display_name'},
+      {name: 'Телефон', value: user.phone, fieldName: 'phone'},
     ],
     buttons: [
-      { title: 'Изменить данные', var: 'primary', action: 'alert("trololo")' },
-      { title: 'Изменить пароль', var: 'primary', action: 'alert("trololo")' },
-      { title: 'Выйти', var: 'danger', action: 'alert("trololo")' },
+      {title: 'Изменить данные', var: 'primary', action: 'alert("trololo")'},
+      {title: 'Изменить пароль', var: 'primary', action: 'alert("trololo")'},
+      {title: 'Выйти', var: 'danger', action: 'alert("trololo")'},
     ],
   },
   '/pages/chats_page/index.html': {
     chatList,
   },
 }
-
 
 export default pageData

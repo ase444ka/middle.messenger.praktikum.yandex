@@ -21,11 +21,21 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', '@stylistic/js'],
+
   rules: {
+    'no-await-in-loop': 'error',
+    'no-duplicate-imports': 'error',
+    'no-use-before-define': 'error',
+    '@stylistic/js/no-trailing-spaces': 'error',
     indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
+    'max-params': ['error', 3],
+    'no-console': ['off'],
+    '@stylistic/js/eol-last': ['error', 'always'],
+    '@stylistic/js/max-len': ['error', {code: 80, comments: 65}],
+    '@stylistic/js/no-multiple-empty-lines': ['error', {max: 2, maxEOF: 1}],
   },
 }
