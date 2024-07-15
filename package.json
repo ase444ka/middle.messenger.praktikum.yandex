@@ -13,6 +13,9 @@
   "author": "Istomina Asya",
   "license": "ISC",
   "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^8.56.0",
     "normalize.css": "^8.0.1"
   },
   "devDependencies": {
@@ -30,7 +33,7 @@
   },
   "type": "module",
   "lint-staged": {
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,css,md,ts}": "prettier --write"
   },
   "engines": {
     "node": ">=18"
