@@ -138,6 +138,16 @@ export default class Block {
 
   _compile() {
     const propsAndStubs = {...this._props}
+    const getRootAttributes = () => {
+      const prototype = fragment.content.children[0]
+      const attrs = prototype.attributes
+      for (const attr of Array.prototype.slice.apply(null, attrs)) {
+        this._node.setAttribute(
+          attr.name,
+          prototype.getAttribute(attr.name) as string,
+        )
+      }
+    }
     const childishTemplate = compile('<div data-id="{{id}}"></div>')
     Object.entries(this._children).forEach(([key, child]) => {
       propsAndStubs[key] = childishTemplate({id: child._id})
@@ -148,6 +158,7 @@ export default class Block {
     // отделяем содержимое шаблона от корневого элемента шаблона
     const fragment = document.createElement('template')
     fragment.innerHTML = template(propsAndStubs)
+    getRootAttributes()
     const content = fragment.content.children[0].innerHTML
     fragment.innerHTML = content
 
