@@ -11,10 +11,12 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-type BlockChildren = {[key: string]: Block}
-type BlockSettings = {whithInternalId?: boolean}
-type EventListeners = {[eventName: string]: EventListenerOrEventListenerObject}
-type BlockProps = {
+export type BlockChildren = {[key: string]: Block}
+export type BlockSettings = {whithInternalId?: boolean}
+export type EventListeners = {
+  [eventName: string]: EventListenerOrEventListenerObject
+}
+export type BlockProps = {
   [key: string]: string | boolean | EventListeners | undefined
   events?: EventListeners
 }

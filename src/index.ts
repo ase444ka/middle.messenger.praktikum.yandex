@@ -1,8 +1,8 @@
 import render from './utils/render.js'
-import ErrorView from '/views/ErrorView/ErrorView.js'
+import ErrorView from './views/ErrorView'
 
 const errorPage = new ErrorView({
-  status: 600,
+  status: '600',
   message: 'Все хорошо, прекрасная маркиза!',
 })
 // app —3 это class дива в корне DOM
