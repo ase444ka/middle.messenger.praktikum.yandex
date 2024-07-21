@@ -141,7 +141,9 @@ export default class Block {
     const getRootAttributes = () => {
       const prototype = fragment.content.children[0]
       const attrs = prototype.attributes
-      for (const attr of Array.prototype.slice.apply(null, attrs)) {
+      console.log(prototype)
+      console.log(Array.from(attrs))
+      for (const attr of Array.from(attrs)) {
         this._node.setAttribute(
           attr.name,
           prototype.getAttribute(attr.name) as string,
@@ -153,7 +155,7 @@ export default class Block {
       propsAndStubs[key] = childishTemplate({id: child._id})
     })
 
-    const template = Handlebars.compile(this._template)
+    const template = compile(this._template)
 
     // отделяем содержимое шаблона от корневого элемента шаблона
     const fragment = document.createElement('template')
