@@ -1,8 +1,6 @@
-// import {v4 as makeUUID} from 'uuid';
+import {v4 as makeUUID} from 'uuid'
 import {compile} from 'handlebars'
 import EventBus from './EventBus'
-
-const makeUUID = () => '23a91df9-2a89-4357-b297-ec2924d854e3'
 
 enum EVENTS {
   INIT = 'init',
@@ -11,14 +9,37 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-export type BlockChildren = {[key: string]: Block}
+let i = 1
+
+export type BlockData = {
+  elements?: BlockChildData
+  [key: string]:
+    | boolean
+    | string
+    | Block
+    | BlockSettings
+    | {[eventName: string]: (ev: Event) => void}
+    | BlockChildData
+    | undefined
+}
+export type BlockChildren = {[key: string]: Block | Block[]}
 export type BlockSettings = {whithInternalId?: boolean}
 export type EventListeners = {
   [eventName: string]: EventListenerOrEventListenerObject
 }
 export type BlockProps = {
-  [key: string]: string | boolean | EventListeners | undefined
+  [key: string]:
+    | string
+    | boolean
+    | EventListeners
+    | undefined
+    | BlockChildData
+    | BlockChildData[]
+    | string[]
   events?: EventListeners
+}
+export type BlockChildData = {
+  [child: string]: {[prop: string]: string}[]
 }
 
 export default class Block {
@@ -41,14 +62,7 @@ export default class Block {
     this._registerEvents()
   }
 
-  _getData(data: {
-    [key: string]:
-      | boolean
-      | string
-      | Block
-      | BlockSettings
-      | {[eventName: string]: (ev: Event) => void}
-  }) {
+  _getData(data: BlockData) {
     const children: BlockChildren = {}
     const props: BlockProps = {}
     let settings: BlockSettings = {}
@@ -59,11 +73,19 @@ export default class Block {
         children[key] = value
       } else if (key === 'events') {
         props[key] = value as EventListeners
+      } else if (key === 'elements') {
+        const blocks = this.getElements(data.elements!)
+        Object.assign(children, blocks)
       } else {
         props[key] = value as boolean | string
       }
     })
     return {children, props, settings}
+  }
+
+  getElements(els: BlockChildData): BlockChildren | [] {
+    console.log('ELS', els)
+    return []
   }
 
   _makePropsProxy(props: BlockProps) {
@@ -92,7 +114,9 @@ export default class Block {
   _componentDidMount() {
     this.componentDidMount()
     Object.values(this._children).forEach(child => {
-      child.dispatchComponentDidMount()
+      if (Array.isArray(child)) {
+        child.forEach(c => c.dispatchComponentDidMount())
+      } else child.dispatchComponentDidMount()
     })
   }
 
@@ -143,8 +167,8 @@ export default class Block {
     const getRootAttributes = () => {
       const prototype = fragment.content.children[0]
       const attrs = prototype.attributes
-      console.log(prototype)
-      console.log(Array.from(attrs))
+      // console.log(prototype)
+      // console.log(Array.from(attrs))
       for (const attr of Array.from(attrs)) {
         this._node.setAttribute(
           attr.name,
@@ -152,22 +176,7 @@ export default class Block {
         )
       }
     }
-    const childishTemplate = compile('<div data-id="{{id}}"></div>')
-    Object.entries(this._children).forEach(([key, child]) => {
-      propsAndStubs[key] = childishTemplate({id: child._id})
-    })
-
-    const template = compile(this._template)
-
-    // отделяем содержимое шаблона от корневого элемента шаблона
-    const fragment = document.createElement('template')
-    fragment.innerHTML = template(propsAndStubs)
-    getRootAttributes()
-    const content = fragment.content.children[0].innerHTML
-    fragment.innerHTML = content
-
-    Object.values(this._children).forEach(child => {
-      console.log(this._children)
+    const generateChildContent = (child: Block) => {
       if (!child.id) {
         throw new Error('children must have setting "with id"')
       }
@@ -175,7 +184,40 @@ export default class Block {
       if (!stub) {
         throw new Error('children must have attribute "data-id"')
       }
+      console.log(i++)
+      console.log(stub)
+      console.log(child.getContent())
       stub.replaceWith(child.getContent())
+    }
+    const childishTemplate = compile('<div data-id="{{id}}"></div>')
+    Object.entries(this._children).forEach(([key, child]) => {
+      if (Array.isArray(child)) {
+        const childArr: string[] = []
+        child.forEach(c => {
+          childArr.push(childishTemplate({id: c.id}))
+        })
+        propsAndStubs[key] = childArr
+      } else propsAndStubs[key] = childishTemplate({id: child.id})
+    })
+
+    console.log(propsAndStubs)
+
+    const template = compile(this._template)
+    console.log(template(propsAndStubs))
+
+    // отделяем содержимое шаблона от корневого элемента шаблона
+    const fragment = document.createElement('template')
+    fragment.innerHTML = template(propsAndStubs)
+    getRootAttributes()
+    const content = fragment.content.children[0].innerHTML
+    fragment.innerHTML = content
+    console.log(fragment.innerHTML)
+
+    Object.values(this._children).forEach(child => {
+      // console.log(this._children)
+      if (Array.isArray(child)) {
+        child.forEach(c => generateChildContent(c))
+      } else generateChildContent(child)
     })
     return fragment.content
   }
@@ -193,7 +235,7 @@ export default class Block {
 
   _removeEvents() {
     const {events = {}} = this._props
-    console.log(this)
+    // console.log(this)
     Object.keys(events).forEach(eventName => {
       this._node.removeEventListener(eventName, events[eventName])
     })
@@ -216,8 +258,8 @@ export default class Block {
     const block = this._compile()
     this._removeEvents()
     this._node.innerHTML = '' // удаляем предыдущее содержимое
-    console.log(this._node)
-    console.log(typeof this._node)
+    // console.log(this._node)
+    // console.log(typeof this._node)
     this._node.append(block)
     this._addEvents()
   }
