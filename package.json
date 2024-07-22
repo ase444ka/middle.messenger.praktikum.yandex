@@ -13,7 +13,9 @@
   "author": "Istomina Asya",
   "license": "ISC",
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "@types/uuid": "^10.0.0",
+    "normalize.css": "^8.0.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin-ts": "^2.3.0",
