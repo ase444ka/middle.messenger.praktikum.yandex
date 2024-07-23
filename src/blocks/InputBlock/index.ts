@@ -2,16 +2,16 @@ import Block, {BlockData} from '../../abstract/Block'
 import './styles.css'
 
 const template = /*jsx*/ `
-<div class='input {{input-class}}'>
-  <label for='{{field-name}}' class='input__label'>
-    {{input-name}}
+<div class='input {{inputClass}}'>
+  <label for='{{fieldName}}' class='input__label'>
+    {{inputName}}
   </label>
   <div class='input__wrapper'>
     <input
       type='{{type}}'
-      id='{{field-name}}'
+      id='{{fieldName}}'
       class='input__input'
-      name='{{field-name}}'
+      name='{{fieldName}}'
       value='{{value}}'
     />
   </div>

@@ -9,8 +9,6 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-let i = 1
-
 export type BlockData = {
   elements?: BlockChildData
   [key: string]:
@@ -84,7 +82,7 @@ export default class Block {
   }
 
   getElements(els: BlockChildData): BlockChildren | [] {
-    console.log('ELS', els)
+    console.log(els)
     return []
   }
 
@@ -167,8 +165,6 @@ export default class Block {
     const getRootAttributes = () => {
       const prototype = fragment.content.children[0]
       const attrs = prototype.attributes
-      // console.log(prototype)
-      // console.log(Array.from(attrs))
       for (const attr of Array.from(attrs)) {
         this._node.setAttribute(
           attr.name,
@@ -184,9 +180,6 @@ export default class Block {
       if (!stub) {
         throw new Error('children must have attribute "data-id"')
       }
-      console.log(i++)
-      console.log(stub)
-      console.log(child.getContent())
       stub.replaceWith(child.getContent())
     }
     const childishTemplate = compile('<div data-id="{{id}}"></div>')
@@ -200,10 +193,7 @@ export default class Block {
       } else propsAndStubs[key] = childishTemplate({id: child.id})
     })
 
-    console.log(propsAndStubs)
-
     const template = compile(this._template)
-    console.log(template(propsAndStubs))
 
     // отделяем содержимое шаблона от корневого элемента шаблона
     const fragment = document.createElement('template')
@@ -211,10 +201,8 @@ export default class Block {
     getRootAttributes()
     const content = fragment.content.children[0].innerHTML
     fragment.innerHTML = content
-    console.log(fragment.innerHTML)
 
     Object.values(this._children).forEach(child => {
-      // console.log(this._children)
       if (Array.isArray(child)) {
         child.forEach(c => generateChildContent(c))
       } else generateChildContent(child)
@@ -235,7 +223,6 @@ export default class Block {
 
   _removeEvents() {
     const {events = {}} = this._props
-    // console.log(this)
     Object.keys(events).forEach(eventName => {
       this._node.removeEventListener(eventName, events[eventName])
     })
@@ -258,8 +245,6 @@ export default class Block {
     const block = this._compile()
     this._removeEvents()
     this._node.innerHTML = '' // удаляем предыдущее содержимое
-    // console.log(this._node)
-    // console.log(typeof this._node)
     this._node.append(block)
     this._addEvents()
   }

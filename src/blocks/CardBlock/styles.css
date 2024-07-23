@@ -7,9 +7,13 @@
   border-radius: 0.9rem;
   min-height: 450px;
   padding: 25px 20px 20px;
-  display: grid;
-  flex-direction: column;
-  gap: 20px;
+  form,
+  &__buttons {
+    display: grid;
+    flex-direction: column;
+    gap: 20px;
+  }
+
   &__title {
     font-size: 1.5rem;
     text-align: center;
