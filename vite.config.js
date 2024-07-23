@@ -1,11 +1,17 @@
-import { resolve } from 'path'
-import { defineConfig } from 'vite'
+import {resolve} from 'path'
+import url from 'url'
+import {defineConfig} from 'vite'
 import postcssNesting from 'postcss-nested'
 import postcssMixins from 'postcss-mixins'
 import handlebars from 'vite-plugin-handlebars'
 import pageData from './src/data/user.js'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': url.fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
   root: resolve(__dirname, 'src'),
   build: {
     outDir: resolve(__dirname, 'dist'),
@@ -35,7 +41,7 @@ export default defineConfig({
   css: {
     postcss: {
       plugins: [
-        postcssMixins({ mixinsDir: resolve(__dirname, 'src') }),
+        postcssMixins({mixinsDir: resolve(__dirname, 'src')}),
         postcssNesting,
       ],
     },

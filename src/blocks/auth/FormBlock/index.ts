@@ -1,6 +1,6 @@
-import Block, {BlockChildData, BlockData} from '../../abstract/Block'
-import InputBlock from '../InputBlock'
-import ButtonBlock from '../ButtonBlock'
+import Block, {BlockChildData, BlockData} from '@/abstract/Block'
+import InputBlock from '@/blocks/auth/InputBlock'
+import ButtonBlock from '@/blocks/auth/ButtonBlock'
 import './styles.css'
 
 const template = /*jsx*/ `

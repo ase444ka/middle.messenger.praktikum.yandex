@@ -1,6 +1,6 @@
-import render from './utils/render.js'
-import CardBlock from './blocks/CardBlock'
-import FormBlock from './blocks/FormBlock'
+import render from '@/utils/render.js'
+import CardBlock from '@/blocks/auth/CardBlock'
+import FormBlock from '@/blocks/auth/FormBlock'
 
 const form = new FormBlock({
   readonly: true,

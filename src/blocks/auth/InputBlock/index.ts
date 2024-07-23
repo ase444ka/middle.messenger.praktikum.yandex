@@ -1,4 +1,4 @@
-import Block, {BlockData} from '../../abstract/Block'
+import Block, {BlockData} from '@/abstract/Block'
 import './styles.css'
 
 const template = /*jsx*/ `
