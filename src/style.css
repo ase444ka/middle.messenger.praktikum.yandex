@@ -29,6 +29,12 @@
   }
 }
 
+@define-mixin vertical-flow {
+  display: grid;
+  flex-direction: column;
+  gap: 20px;
+}
+
 :root {
   --white: #ffffff;
   --black: #1e1e1e;

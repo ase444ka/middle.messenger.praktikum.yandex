@@ -82,7 +82,10 @@ export default class Block {
   }
 
   getElements(els: BlockChildData): BlockChildren | [] {
-    console.log(els)
+    if (els.length || Object.keys(els).length) {
+      throw new Error(`метод getElements должен быть переопределен,
+      т.к. в пропсах есть описание дочерних элементов!`)
+    }
     return []
   }
 

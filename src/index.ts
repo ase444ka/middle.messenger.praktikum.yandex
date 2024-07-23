@@ -1,7 +1,8 @@
 import render from './utils/render.js'
 import CardBlock from './blocks/CardBlock'
+import FormBlock from './blocks/FormBlock'
 
-const Card = new CardBlock({
+const form = new FormBlock({
   readonly: true,
   cursor: 'default',
   name: 'Петр',
@@ -23,5 +24,7 @@ const Card = new CardBlock({
   },
 })
 
+const card = new CardBlock({title: 'Иван Иванов', content: form})
+
 // app —3 это class дива в корне DOM
-render('#app', Card)
+render('#app', card)
