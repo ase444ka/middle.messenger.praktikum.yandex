@@ -14,6 +14,7 @@ export type BlockData = {
   [key: string]:
     | boolean
     | string
+    | number
     | Block
     | BlockSettings
     | {[eventName: string]: (ev: Event) => void}
@@ -29,6 +30,7 @@ export type BlockProps = {
   [key: string]:
     | string
     | boolean
+    | number
     | EventListeners
     | undefined
     | BlockChildData
