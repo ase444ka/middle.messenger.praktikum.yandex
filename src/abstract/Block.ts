@@ -107,13 +107,12 @@ export default class Block {
 
   _registerEvents() {
     this._eventBus.on(EVENTS.INIT, this._init.bind(this))
-    this._eventBus.on(EVENTS.FLOW_CDM, this._componentDidMount.bind(this))
+    this._eventBus.on(EVENTS.FLOW_CDM, this.componentDidMount.bind(this))
     this._eventBus.on(EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
-    this._eventBus.on(EVENTS.FLOW_RENDER, this._render.bind(this))
+    this._eventBus.on(EVENTS.FLOW_RENDER, this.render.bind(this))
   }
 
   _componentDidMount() {
-    this.componentDidMount()
     Object.values(this._children).forEach(child => {
       if (Array.isArray(child)) {
         child.forEach(c => c.dispatchComponentDidMount())
@@ -121,7 +120,9 @@ export default class Block {
     })
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this._componentDidMount()
+  }
 
   _componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
     const response = this.componentDidUpdate(oldProps, newProps)
@@ -131,7 +132,7 @@ export default class Block {
     this.render()
   }
 
-  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
+  componentDidUpdate(oldProps: BlockProps, newProps: BlockProps): boolean {
     const oldKeys = Object.keys(oldProps)
     const newKeys = Object.keys(newProps)
 
