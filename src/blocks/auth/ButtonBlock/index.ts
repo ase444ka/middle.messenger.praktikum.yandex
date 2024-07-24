@@ -10,7 +10,7 @@ const template = /*jsx*/ `
 
 export default class ButtonBlock extends Block {
   constructor(props: BlockData) {
-    super({...props, settings: {whithInternalId: true}})
+    super(props)
     this._template = template
     this.init()
   }

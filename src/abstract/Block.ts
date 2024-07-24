@@ -21,7 +21,7 @@ export type BlockData = {
     | undefined
 }
 export type BlockChildren = {[key: string]: Block | Block[]}
-export type BlockSettings = {whithInternalId?: boolean}
+export type BlockSettings = {isRoot?: boolean}
 export type EventListeners = {
   [eventName: string]: EventListenerOrEventListenerObject
 }
@@ -48,12 +48,12 @@ export default class Block {
   _node: HTMLElement
   _template: string
 
-  constructor(data = {}) {
+  constructor(data: BlockData = {}) {
     const {children, props, settings} = this._getData(data)
     this._id = null
     this._children = children
     this._eventBus = new EventBus()
-    if (settings?.whithInternalId) {
+    if (!settings?.isRoot) {
       this._id = makeUUID()
     }
     this._props = this._makePropsProxy(props)

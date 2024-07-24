@@ -19,8 +19,8 @@ const template = /*jsx*/ `
 `
 
 export default class InputBlock extends Block {
-  constructor(props: BlockData) {
-    super({...props, settings: {whithInternalId: true}})
+  constructor(data: BlockData) {
+    super(data)
     this._template = template
     this.init()
   }

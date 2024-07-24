@@ -20,7 +20,7 @@ export default class FormBlock extends Block {
   _fields: Block[]
   _buttons: Block[]
   constructor(data: BlockData) {
-    super({...data, settings: {whithInternalId: true}})
+    super(data)
 
     this._template = template
     this.init()
