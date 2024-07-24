@@ -1,6 +1,15 @@
 import Block from '@/abstract/Block'
 import './style.css'
 
+type MessageData = (
+  | {img: string; text?: never}
+  | {img?: never; text: string}
+) & {
+  isYours: boolean
+  isSeen?: boolean
+  time: string
+}
+
 const template = /*jsx*/ `
 <div
   class="chat-page__chat__message
@@ -26,13 +35,7 @@ const template = /*jsx*/ `
 `
 
 export default class ChatMessage extends Block {
-  constructor(
-    data: ({img: string; text?: never} | {img?: never; text: string}) & {
-      isYours: boolean
-      isSeen?: boolean
-      time: string
-    },
-  ) {
+  constructor(data: MessageData) {
     super(data)
     this._template = template
     this.init()

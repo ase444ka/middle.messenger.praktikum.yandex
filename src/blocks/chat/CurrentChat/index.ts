@@ -1,4 +1,5 @@
 import Block, {BlockChildData} from '@/abstract/Block'
+import ChatForm from '@/blocks/chat/ChatForm'
 import './style.css'
 
 const template = /*jsx*/ `
@@ -17,9 +18,11 @@ const template = /*jsx*/ `
 </main>                                          
 `
 
+const form = new ChatForm()
+
 export default class CurrentChat extends Block {
-  constructor(data: {date: string; messages: BlockChildData}) {
-    super(data)
+  constructor(data: {name: string; messages: BlockChildData}) {
+    super({...data, form})
     this._template = template
     this.init()
   }

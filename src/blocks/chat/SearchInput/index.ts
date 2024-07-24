@@ -11,14 +11,8 @@ const template = /*jsx*/ `
 `
 
 export default class SearchInput extends Block {
-  constructor(data: {
-    name: string
-    isYours: boolean
-    chatLast: string
-    chatDate: string
-    counter: number
-  }) {
-    super(data)
+  constructor() {
+    super()
     this._template = template
     this.init()
   }

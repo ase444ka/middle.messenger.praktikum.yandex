@@ -24,8 +24,7 @@ const template = /*jsx*/ `
   </button>
 </form>                                  
 `
-
-export default class SearchInput extends Block {
+export default class ChatForm extends Block {
   constructor() {
     super()
     this._template = template

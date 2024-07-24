@@ -1,6 +1,14 @@
 import Block from '@/abstract/Block'
 import './style.css'
 
+export type ChatLinkData = {
+  name: string
+  isYours: boolean
+  chatLast: string
+  chatDate: string
+  counter: number
+}
+
 const template = /*jsx*/ `
 <a class='chat-page__link'>
   <div class='chat-page__chat-avatar'>
@@ -28,13 +36,7 @@ const template = /*jsx*/ `
 `
 
 export default class ChatLink extends Block {
-  constructor(data: {
-    name: string
-    isYours: boolean
-    chatLast: string
-    chatDate: string
-    counter: number
-  }) {
+  constructor(data: ChatLinkData) {
     super(data)
     this._template = template
     this.init()
