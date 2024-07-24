@@ -1,5 +1,5 @@
 import Block, {BlockData} from '@/abstract/Block'
-import './styles.css'
+import './style.css'
 
 const template = /*jsx*/ `
 <button class='button button_{{var}}' onclick='{{action}}'>

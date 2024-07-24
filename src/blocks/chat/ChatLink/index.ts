@@ -1,5 +1,5 @@
 import Block from '@/abstract/Block'
-import './styles.css'
+import './style.css'
 
 const template = /*jsx*/ `
 <a class='chat-page__link'>

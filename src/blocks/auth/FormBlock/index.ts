@@ -1,7 +1,7 @@
 import Block, {BlockChildData, BlockData} from '@/abstract/Block'
 import InputBlock from '@/blocks/auth/InputBlock'
 import ButtonBlock from '@/blocks/auth/ButtonBlock'
-import './styles.css'
+import './style.css'
 
 const template = /*jsx*/ `
   <form>

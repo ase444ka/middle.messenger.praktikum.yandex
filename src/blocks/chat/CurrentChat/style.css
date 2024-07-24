@@ -1,0 +1,26 @@
+.chat-page__content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  padding: 10px 20px;
+  flex-grow: 1;
+}
+&__title {
+  border-bottom: 1px solid var(--grey-3);
+  @mixin chatgrid;
+  &__avatar {
+    width: 34px;
+    height: 34px;
+    @mixin avatar;
+  }
+  &__header {
+    @mixin chatname;
+    font-size: 0.9rem;
+  }
+  &__button {
+    background: none;
+    outline: none;
+    border: none;
+    transform: rotate(90deg);
+    font-size: 24px;
+  }
+}

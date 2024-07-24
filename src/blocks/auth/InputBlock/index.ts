@@ -1,5 +1,5 @@
 import Block, {BlockData} from '@/abstract/Block'
-import './styles.css'
+import './style.css'
 
 const template = /*jsx*/ `
 <div class='input {{inputClass}}'>
