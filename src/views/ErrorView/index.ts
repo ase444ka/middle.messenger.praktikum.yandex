@@ -1,4 +1,4 @@
-import Block, {BlockProps} from '../../abstract/Block'
+import Block from '@/abstract/Block'
 import './styles.css'
 
 const template = /*jsx*/ `
@@ -14,8 +14,8 @@ const template = /*jsx*/ `
 `
 
 export default class ErrorView extends Block {
-  constructor(props: BlockProps) {
-    super(props)
+  constructor(data: {status: string; message: string}) {
+    super(data)
     this._template = template
     this.init()
   }
