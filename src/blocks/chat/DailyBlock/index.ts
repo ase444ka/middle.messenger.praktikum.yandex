@@ -1,4 +1,4 @@
-import Block, {BlockChildData} from '@/abstract/Block'
+import Block, {BlockChildrenData} from '@/abstract/Block'
 import './style.css'
 
 const template = /*jsx*/ `
@@ -12,7 +12,7 @@ const template = /*jsx*/ `
 `
 
 export default class DailyBlock extends Block {
-  constructor(data: {date: string; messages: BlockChildData}) {
+  constructor(data: {date: string; messages: BlockChildrenData}) {
     super(data)
     this._template = template
     this.init()

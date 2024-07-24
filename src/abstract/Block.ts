@@ -9,37 +9,45 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-export type BlockData = {
-  elements?: BlockChildData
-  [key: string]:
-    | boolean
-    | string
-    | number
-    | Block
-    | BlockSettings
-    | {[eventName: string]: (ev: Event) => void}
-    | BlockChildData
-    | undefined
-}
-export type BlockChildren = {[key: string]: Block | Block[]}
-export type BlockSettings = {isRoot?: boolean}
-export type EventListeners = {
+type EventListeners = {
   [eventName: string]: EventListenerOrEventListenerObject
 }
-export type BlockProps = {
-  [key: string]:
-    | string
-    | boolean
-    | number
-    | EventListeners
-    | undefined
-    | BlockChildData
-    | BlockChildData[]
-    | string[]
+export type Primitive = string | boolean | number
+
+export type BlockData = {
+  elements?: BlockChildrenData
   events?: EventListeners
+  [key: string]:
+    | Primitive
+    | EventListeners
+    | BlockChildrenData
+    | undefined
+    | Block
+    | BlockSettings
 }
-export type BlockChildData = {
-  [child: string]: {[prop: string]: string}[]
+
+export type BlockChildren = {[key: string]: Block[]}
+export type BlockSettings = {isRoot?: boolean}
+
+// тип string[] используется для массива заглушек
+// дочерних элементов
+export type BlockProps = {
+  events?: EventListeners
+  [key: string]: Primitive | EventListeners | undefined | string[]
+}
+
+// допускаются дочерние элементы трех степеней вложенности,
+// события регистрируются для всех одинаковые в конструкторе
+export type BlockChildrenData = {
+  [children: string]: {
+    [childProp: string]:
+      | Primitive
+      | {
+          [grandChildProp: string]:
+            | Primitive
+            | {[greatChildProp: string]: Primitive}[]
+        }[]
+  }[]
 }
 
 export default class Block {
@@ -70,7 +78,7 @@ export default class Block {
       if (key === 'settings') {
         settings = value as BlockSettings
       } else if (value instanceof Block) {
-        children[key] = value
+        children[key] = [value]
       } else if (key === 'events') {
         props[key] = value as EventListeners
       } else if (key === 'elements') {
@@ -83,7 +91,7 @@ export default class Block {
     return {children, props, settings}
   }
 
-  getElements(els: BlockChildData): BlockChildren | [] {
+  getElements(els: BlockChildrenData): BlockChildren | [] {
     if (els.length || Object.keys(els).length) {
       throw new Error(`метод getElements должен быть переопределен,
       т.к. в пропсах есть описание дочерних элементов!`)
@@ -116,9 +124,7 @@ export default class Block {
 
   _componentDidMount() {
     Object.values(this._children).forEach(child => {
-      if (Array.isArray(child)) {
-        child.forEach(c => c.dispatchComponentDidMount())
-      } else child.dispatchComponentDidMount()
+      child.forEach(c => c.dispatchComponentDidMount())
     })
   }
 
@@ -167,7 +173,9 @@ export default class Block {
   }
 
   _compile() {
-    const propsAndStubs = {...this._props}
+    const propsAndStubs: BlockProps | {[el: string]: string[]} = {
+      ...this._props,
+    }
     const getRootAttributes = () => {
       const prototype = fragment.content.children[0]
       const attrs = prototype.attributes
@@ -180,7 +188,9 @@ export default class Block {
     }
     const generateChildContent = (child: Block) => {
       if (!child.id) {
-        throw new Error('children must have setting "with id"')
+        throw new Error(
+          `Error! Seems like ${child.constructor.name} has "isRoot" setting!`,
+        )
       }
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`)
       if (!stub) {
@@ -190,13 +200,11 @@ export default class Block {
     }
     const childishTemplate = compile('<div data-id="{{id}}"></div>')
     Object.entries(this._children).forEach(([key, child]) => {
-      if (Array.isArray(child)) {
-        const childArr: string[] = []
-        child.forEach(c => {
-          childArr.push(childishTemplate({id: c.id}))
-        })
-        propsAndStubs[key] = childArr
-      } else propsAndStubs[key] = childishTemplate({id: child.id})
+      const childArr: string[] = []
+      child.forEach(c => {
+        childArr.push(childishTemplate({id: c.id}))
+      })
+      propsAndStubs[key] = childArr
     })
 
     const template = compile(this._template)
@@ -209,9 +217,7 @@ export default class Block {
     fragment.innerHTML = content
 
     Object.values(this._children).forEach(child => {
-      if (Array.isArray(child)) {
-        child.forEach(c => generateChildContent(c))
-      } else generateChildContent(child)
+      child.forEach(c => generateChildContent(c))
     })
     return fragment.content
   }
@@ -228,7 +234,10 @@ export default class Block {
   }
 
   _removeEvents() {
-    const {events = {}} = this._props
+    const events = this._props.events as EventListeners
+    if (!events) {
+      return
+    }
     Object.keys(events).forEach(eventName => {
       this._node.removeEventListener(eventName, events[eventName])
     })

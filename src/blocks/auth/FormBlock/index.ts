@@ -1,4 +1,4 @@
-import Block, {BlockChildData, BlockData} from '@/abstract/Block'
+import Block, {BlockChildrenData, BlockData} from '@/abstract/Block'
 import InputBlock from '@/blocks/auth/InputBlock'
 import ButtonBlock from '@/blocks/auth/ButtonBlock'
 import './style.css'
@@ -26,18 +26,23 @@ export default class FormBlock extends Block {
     this.init()
   }
 
-  getElements(els: BlockChildData) {
+  getElements(els: BlockChildrenData) {
     const fields = els.fields.map(
       f =>
         new InputBlock({
-          inputName: f.inputName,
-          type: f.type,
-          fieldName: f.fieldName,
+          inputName: f.inputName as string,
+          type: f.type as string,
+          fieldName: f.fieldName as string,
           inputClass: 'form__input',
         }),
     )
     const buttons = els.buttons.map(
-      b => new ButtonBlock({title: b.title, var: b.var, action: b.action}),
+      b =>
+        new ButtonBlock({
+          title: b.title as string,
+          var: b.var as string,
+          action: b.action as string,
+        }),
     )
     return {fields, buttons}
   }
