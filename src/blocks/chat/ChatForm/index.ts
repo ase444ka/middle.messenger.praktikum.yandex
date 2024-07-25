@@ -3,8 +3,8 @@ import './style.css'
 
 const template = /*jsx*/ `
 <form class="chat-page__form">
-  <label for="chat-page__form__attachment" class="chat-page__form__attachment">
-    <input type="file" id="chat-page__form__attachment">
+  <label for="message" class="chat-page__form__attachment">
+    <input type="file" id="message" name="message">
     <div class="chat-page__form__attachment__control">
         <svg>
             <use href="/assets/images/sprites.svg#attachment"></use>
