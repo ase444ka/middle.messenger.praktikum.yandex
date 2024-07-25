@@ -1,6 +1,14 @@
-import Block, {BlockChildrenData} from '@/abstract/Block'
+import Block from '@/abstract/Block'
 import ChatForm from '@/blocks/chat/ChatForm'
+import DailyBlock, {DailyBlockData} from '@/blocks/chat/DailyBlock'
 import './style.css'
+
+export type CurrentChatData = {
+  name: string
+  elements: {
+    dailyBlocks: DailyBlockData[]
+  }
+}
 
 const template = /*jsx*/ `
 <main class="chat-page__content">
@@ -21,9 +29,18 @@ const template = /*jsx*/ `
 const form = new ChatForm()
 
 export default class CurrentChat extends Block {
-  constructor(data: {name: string; messages: BlockChildrenData}) {
+  constructor(data: CurrentChatData) {
     super({...data, form})
     this._template = template
     this.init()
+  }
+  getElements(elements: {dailyBlocks: DailyBlockData[]}): {
+    dailyBlocks: DailyBlock[]
+  } {
+    const dailyBlocks: DailyBlock[] = []
+    elements.dailyBlocks.forEach(b => {
+      dailyBlocks.push(new DailyBlock(b))
+    })
+    return {dailyBlocks}
   }
 }

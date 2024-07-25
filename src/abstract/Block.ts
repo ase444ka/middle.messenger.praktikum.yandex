@@ -9,7 +9,7 @@ enum EVENTS {
   FLOW_RENDER = 'flow:render',
 }
 
-type EventListeners = {
+export type EventListeners = {
   [eventName: string]: EventListenerOrEventListenerObject
 }
 export type Primitive = string | boolean | number
@@ -39,15 +39,7 @@ export type BlockProps = {
 // допускаются дочерние элементы трех степеней вложенности,
 // события регистрируются для всех одинаковые в конструкторе
 export type BlockChildrenData = {
-  [children: string]: {
-    [childProp: string]:
-      | Primitive
-      | {
-          [grandChildProp: string]:
-            | Primitive
-            | {[greatChildProp: string]: Primitive}[]
-        }[]
-  }[]
+  [children: string]: BlockData[]
 }
 
 export default class Block {
