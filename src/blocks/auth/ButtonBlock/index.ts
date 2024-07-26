@@ -1,5 +1,7 @@
-import Block, {BlockData} from '@/abstract/Block'
+import Block from '@/abstract/Block'
 import './style.css'
+
+export type ButtonData = {title: string; var?: string; action?: string}
 
 const template = /*jsx*/ `
 <button class='button button_{{var}}' onclick='{{action}}'>
@@ -9,7 +11,7 @@ const template = /*jsx*/ `
 `
 
 export default class ButtonBlock extends Block {
-  constructor(props: BlockData) {
+  constructor(props: ButtonData) {
     super(props)
     this._template = template
     this.init()

@@ -1,5 +1,13 @@
-import Block, {BlockData} from '@/abstract/Block'
+import Block from '@/abstract/Block'
 import './style.css'
+
+export type InputData = {
+  type?: string
+  inputClass?: string
+  fieldName: string
+  inputName: string
+  value?: string | number | boolean
+}
 
 const template = /*jsx*/ `
 <div class='input {{inputClass}}'>
@@ -19,7 +27,7 @@ const template = /*jsx*/ `
 `
 
 export default class InputBlock extends Block {
-  constructor(data: BlockData) {
+  constructor(data: InputData) {
     super(data)
     this._template = template
     this.init()

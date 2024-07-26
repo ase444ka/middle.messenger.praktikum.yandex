@@ -1,5 +1,7 @@
-import Block, {BlockData} from '@/abstract/Block'
+import Block from '@/abstract/Block'
 import './style.css'
+
+export type CardData = {title: string; content: Block}
 
 const template = /*jsx*/ `
 <div class="card">
@@ -10,7 +12,7 @@ const template = /*jsx*/ `
 `
 
 export default class CardBlock extends Block {
-  constructor(data: BlockData) {
+  constructor(data: CardData) {
     super(data)
     this._template = template
     this.init()

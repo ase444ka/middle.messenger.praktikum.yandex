@@ -1,7 +1,17 @@
-import Block, {BlockChildrenData, BlockData} from '@/abstract/Block'
-import InputBlock from '@/blocks/auth/InputBlock'
-import ButtonBlock from '@/blocks/auth/ButtonBlock'
+import Block from '@/abstract/Block'
+import InputBlock, {InputData} from '@/blocks/auth/InputBlock'
+import ButtonBlock, {ButtonData} from '@/blocks/auth/ButtonBlock'
 import './style.css'
+
+type FormElements = {
+  fields: InputData[]
+  buttons: ButtonData[]
+}
+
+export type FormBlockData = {
+  readonly: boolean
+  elements: FormElements
+}
 
 const template = /*jsx*/ `
   <form>
@@ -17,23 +27,22 @@ const template = /*jsx*/ `
 `
 
 export default class FormBlock extends Block {
-  _fields: Block[]
-  _buttons: Block[]
-  constructor(data: BlockData) {
+  constructor(data: FormBlockData) {
     super(data)
 
     this._template = template
     this.init()
   }
 
-  getElements(els: BlockChildrenData) {
+  getElements(els: FormElements) {
     const fields = els.fields.map(
       f =>
         new InputBlock({
-          inputName: f.inputName as string,
-          type: f.type as string,
-          fieldName: f.fieldName as string,
+          type: f.type,
+          fieldName: f.fieldName,
+          inputName: f.inputName,
           inputClass: 'form__input',
+          value: f.value as string,
         }),
     )
     const buttons = els.buttons.map(
