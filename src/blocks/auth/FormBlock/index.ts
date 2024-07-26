@@ -36,14 +36,7 @@ export default class FormBlock extends Block {
 
   getElements(els: FormElements) {
     const fields = els.fields.map(
-      f =>
-        new InputBlock({
-          type: f.type,
-          fieldName: f.fieldName,
-          inputName: f.inputName,
-          inputClass: 'form__input',
-          value: f.value as string,
-        }),
+      f => new InputBlock({...f, inputClass: 'form__input'}),
     )
     const buttons = els.buttons.map(
       b =>

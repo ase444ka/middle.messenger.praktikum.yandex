@@ -7,10 +7,20 @@ export type InputData = {
   fieldName: string
   inputName: string
   value?: string | number | boolean
+  readonly?: boolean
+  isValid: boolean
+  showError: boolean
+  errorMessage: string
 }
 
 const template = /*jsx*/ `
-<div class='input {{inputClass}}'>
+<div class='input 
+  {{inputClass}}
+  {{#if showError}}
+  input_error
+  {{/if}}
+  
+'>
   <label for='{{fieldName}}' class='input__label'>
     {{inputName}}
   </label>
@@ -21,8 +31,15 @@ const template = /*jsx*/ `
       class='input__input'
       name='{{fieldName}}'
       value='{{value}}'
+      {{#if readonly}}
+      readonly
+      {{/if}}
     />
+    
   </div>
+  {{#if showError}}
+    <div class='input__error'>{{errorMessage}}</div>
+    {{/if}}
 </div>                                               
 `
 
