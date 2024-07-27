@@ -19,13 +19,17 @@ export type Primitive = string | boolean | number
 export type BlockData = {
   elements?: BlockChildrenData
   events?: EventListeners
+  settings?: BlockSettings
   [key: string]:
+    | BlockSettings
     | Primitive
     | EventListeners
     | BlockChildrenData
     | undefined
     | Block
 }
+
+type BlockSettings = {selector?: string}
 
 export type BlockChildren = {[key: string]: Block[]}
 
@@ -49,12 +53,15 @@ export default class Block {
   _props: BlockProps
   _node: HTMLElement
   _template: string
+  _interactiveSelector: string
+  _interactiveNode: HTMLElement
 
   constructor(data: BlockData = {}) {
-    const {children, props} = this._getData(data)
+    const {children, props, settings} = this._getData(data)
     this._children = children
     this._eventBus = new EventBus()
     this._id = makeUUID()
+    this._interactiveSelector = settings?.selector || ''
     this._props = this._makePropsProxy(props)
     this._registerEvents()
   }
@@ -62,8 +69,11 @@ export default class Block {
   _getData(data: BlockData) {
     const children: BlockChildren = {}
     const props: BlockProps = {}
+    let settings: BlockSettings = {}
     Object.entries(data).forEach(([key, value]) => {
-      if (value instanceof Block) {
+      if (key === 'settings') {
+        settings = value as BlockSettings
+      } else if (value instanceof Block) {
         children[key] = [value]
       } else if (key === 'events') {
         props[key] = value as EventListeners
@@ -74,7 +84,7 @@ export default class Block {
         props[key] = value as boolean | string
       }
     })
-    return {children, props}
+    return {children, props, settings}
   }
 
   getElements(els: BlockChildrenData): BlockChildren | [] {
@@ -175,8 +185,37 @@ export default class Block {
   }
 
   _compile() {
-    const getRootAttributes = () => {
-      const prototype = fragment.content.children[0]
+    // создание плоских пропсов вместо вложенных элементов
+    const generatePropsAndStubs = () => {
+      const propsAndStubs: BlockProps | {[el: string]: string[]} = {
+        ...this._props,
+      }
+      const childishTemplate = compile('<div data-id="{{id}}"></div>')
+      Object.entries(this._children).forEach(([key, child]) => {
+        const childArr: string[] = []
+        child.forEach(c => {
+          childArr.push(childishTemplate({id: c.id}))
+        })
+        propsAndStubs[key] = childArr
+      })
+      return propsAndStubs
+    }
+    // создание шаблона с плоскими пропсами
+    //  - заглушками вместо элементов
+    const generateFlatTemplate = (
+      propsAndStubs: BlockProps | {[el: string]: string[]},
+    ) => {
+      const template = compile(this._template)
+      // отделяем содержимое шаблона
+      // от корневого элемента шаблона
+      const templateElement = document.createElement('template')
+      templateElement.innerHTML = template(propsAndStubs)
+      return templateElement
+    }
+    // вытаскиваем атрибуты для
+    // корневого элемента из шаблона
+    const getRootAttributes = (templateElement: HTMLTemplateElement) => {
+      const prototype = templateElement.content.children[0]
       const attrs = prototype.attributes
       for (const attr of Array.from(attrs)) {
         this._node.setAttribute(
@@ -185,48 +224,60 @@ export default class Block {
         )
       }
     }
-    const generateChildContent = (child: Block) => {
+    // получаем внутренность шаблона,
+    // все что внутри корневого элемента
+    const getFlatInnerTemplate = (templateElement: HTMLTemplateElement) => {
+      const inner = templateElement.content.children[0].innerHTML
+      const innerTemplate = document.createElement('template')
+      innerTemplate.innerHTML = inner
+      return innerTemplate
+    }
+    // помещаем во внутренний "плоский"
+    // шаблон настоящие дочерние элементы
+    const generateNestedContentFragment = (
+      templateElement: HTMLTemplateElement,
+    ) => {
+      Object.values(this._children).forEach(child => {
+        child.forEach(c => generateChildContent(c, templateElement))
+      })
+      return templateElement.content
+    }
+    // создание дочерних элементов
+    const generateChildContent = (
+      child: Block,
+      templateElement: HTMLTemplateElement,
+    ) => {
       if (!child.id) {
         throw new Error(
           `Error! Seems like ${child.constructor.name} don't have id!`,
         )
       }
-      const stub = fragment.content.querySelector(`[data-id="${child.id}"]`)
+      const stub = templateElement.content.querySelector(
+        `[data-id="${child.id}"]`,
+      )
       if (!stub) {
         throw new Error('all blocks must have attribute "data-id"')
       }
       stub.replaceWith(child.getContent())
     }
-
-    const propsAndStubs: BlockProps | {[el: string]: string[]} = {
-      ...this._props,
+    // задание узла, который будет реагировать
+    // на действия пользователя
+    const setInteractiveNode = (content: DocumentFragment) => {
+      if (this._interactiveSelector) {
+        this._interactiveNode =
+          content.querySelector(this._interactiveSelector) || this._node
+      } else {
+        this._interactiveNode = this._node
+      }
     }
 
-    const childishTemplate = compile('<div data-id="{{id}}"></div>')
-
-    Object.entries(this._children).forEach(([key, child]) => {
-      const childArr: string[] = []
-      child.forEach(c => {
-        childArr.push(childishTemplate({id: c.id}))
-      })
-      propsAndStubs[key] = childArr
-    })
-
-    const template = compile(this._template)
-    // отделяем содержимое шаблона от корневого элемента шаблона
-    const fragment = document.createElement('template')
-    fragment.innerHTML = template(propsAndStubs)
-
-    getRootAttributes()
-
-    const content = fragment.content.children[0].innerHTML
-    fragment.innerHTML = content
-
-    Object.values(this._children).forEach(child => {
-      child.forEach(c => generateChildContent(c))
-    })
-
-    return fragment.content
+    const propsAndStubs = generatePropsAndStubs()
+    const templateElement = generateFlatTemplate(propsAndStubs)
+    getRootAttributes(templateElement)
+    const flatInnerTemplate = getFlatInnerTemplate(templateElement)
+    const content = generateNestedContentFragment(flatInnerTemplate)
+    setInteractiveNode(content)
+    return content
   }
 
   get id() {
@@ -236,7 +287,7 @@ export default class Block {
   _addEvents() {
     const {events = {}} = this._props
     Object.keys(events).forEach(eventName => {
-      this._node.addEventListener(eventName, events[eventName])
+      this._interactiveNode.addEventListener(eventName, events[eventName])
     })
   }
 
@@ -246,7 +297,7 @@ export default class Block {
       return
     }
     Object.keys(events).forEach(eventName => {
-      this._node.removeEventListener(eventName, events[eventName])
+      this._interactiveNode.removeEventListener(eventName, events[eventName])
     })
   }
 
