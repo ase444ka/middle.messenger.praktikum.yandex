@@ -1,12 +1,14 @@
 import {v4 as makeUUID} from 'uuid'
 import {compile} from 'handlebars'
 import EventBus from './EventBus'
+import controller from '@/controllers/main'
 
 enum EVENTS {
   INIT = 'init',
   FLOW_CDM = 'flow:component-did-mount',
   FLOW_CDU = 'flow:component-did-update',
   FLOW_RENDER = 'flow:render',
+  FLOW_UNMOUNT = 'flow:unmount',
 }
 
 export type EventListeners = {
@@ -23,11 +25,9 @@ export type BlockData = {
     | BlockChildrenData
     | undefined
     | Block
-    | BlockSettings
 }
 
 export type BlockChildren = {[key: string]: Block[]}
-export type BlockSettings = {isRoot?: boolean}
 
 // тип string[] используется для массива заглушек
 // дочерних элементов
@@ -43,7 +43,7 @@ export type BlockChildrenData = {
 }
 
 export default class Block {
-  _id: null | string
+  _id: string
   _children: BlockChildren
   _eventBus: EventBus
   _props: BlockProps
@@ -51,13 +51,10 @@ export default class Block {
   _template: string
 
   constructor(data: BlockData = {}) {
-    const {children, props, settings} = this._getData(data)
-    this._id = null
+    const {children, props} = this._getData(data)
     this._children = children
     this._eventBus = new EventBus()
-    if (!settings?.isRoot) {
-      this._id = makeUUID()
-    }
+    this._id = makeUUID()
     this._props = this._makePropsProxy(props)
     this._registerEvents()
   }
@@ -65,11 +62,8 @@ export default class Block {
   _getData(data: BlockData) {
     const children: BlockChildren = {}
     const props: BlockProps = {}
-    let settings: BlockSettings = {}
     Object.entries(data).forEach(([key, value]) => {
-      if (key === 'settings') {
-        settings = value as BlockSettings
-      } else if (value instanceof Block) {
+      if (value instanceof Block) {
         children[key] = [value]
       } else if (key === 'events') {
         props[key] = value as EventListeners
@@ -80,7 +74,7 @@ export default class Block {
         props[key] = value as boolean | string
       }
     })
-    return {children, props, settings}
+    return {children, props}
   }
 
   getElements(els: BlockChildrenData): BlockChildren | [] {
@@ -112,12 +106,22 @@ export default class Block {
     this._eventBus.on(EVENTS.FLOW_CDM, this.componentDidMount.bind(this))
     this._eventBus.on(EVENTS.FLOW_CDU, this._componentDidUpdate.bind(this))
     this._eventBus.on(EVENTS.FLOW_RENDER, this.render.bind(this))
+    this._eventBus.on(EVENTS.FLOW_UNMOUNT, this._componentDidUnmount.bind(this))
+  }
+
+  _registerBlock() {
+    controller.addBlock(this)
+  }
+
+  _unregisterBlock() {
+    controller.removeBlock(this._id)
   }
 
   _componentDidMount() {
     Object.values(this._children).forEach(child => {
       child.forEach(c => c.dispatchComponentDidMount())
     })
+    this._registerBlock()
   }
 
   componentDidMount() {
@@ -147,6 +151,14 @@ export default class Block {
     return false
   }
 
+  _componentDidUnmount() {
+    this.componentDidUnmount()
+    this._removeEvents()
+    this._unregisterBlock()
+  }
+
+  componentDidUnmount() {}
+
   init() {
     this._eventBus.emit(EVENTS.INIT)
   }
@@ -159,15 +171,10 @@ export default class Block {
   _createResourses() {
     const tag = this._template.match(/<(\w+)/)?.[1]
     this._node = document.createElement(tag as string)
-    if (this._id) {
-      this._node.setAttribute('data-id', this._id)
-    }
+    this._node.setAttribute('data-id', this._id)
   }
 
   _compile() {
-    const propsAndStubs: BlockProps | {[el: string]: string[]} = {
-      ...this._props,
-    }
     const getRootAttributes = () => {
       const prototype = fragment.content.children[0]
       const attrs = prototype.attributes
@@ -181,16 +188,22 @@ export default class Block {
     const generateChildContent = (child: Block) => {
       if (!child.id) {
         throw new Error(
-          `Error! Seems like ${child.constructor.name} has "isRoot" setting!`,
+          `Error! Seems like ${child.constructor.name} don't have id!`,
         )
       }
       const stub = fragment.content.querySelector(`[data-id="${child.id}"]`)
       if (!stub) {
-        throw new Error('children must have attribute "data-id"')
+        throw new Error('all blocks must have attribute "data-id"')
       }
       stub.replaceWith(child.getContent())
     }
+
+    const propsAndStubs: BlockProps | {[el: string]: string[]} = {
+      ...this._props,
+    }
+
     const childishTemplate = compile('<div data-id="{{id}}"></div>')
+
     Object.entries(this._children).forEach(([key, child]) => {
       const childArr: string[] = []
       child.forEach(c => {
@@ -200,22 +213,24 @@ export default class Block {
     })
 
     const template = compile(this._template)
-
     // отделяем содержимое шаблона от корневого элемента шаблона
     const fragment = document.createElement('template')
     fragment.innerHTML = template(propsAndStubs)
+
     getRootAttributes()
+
     const content = fragment.content.children[0].innerHTML
     fragment.innerHTML = content
 
     Object.values(this._children).forEach(child => {
       child.forEach(c => generateChildContent(c))
     })
+
     return fragment.content
   }
 
   get id() {
-    return this._id || false
+    return this._id
   }
 
   _addEvents() {
@@ -262,6 +277,9 @@ export default class Block {
 
   dispatchComponentDidMount() {
     this._eventBus.emit(EVENTS.FLOW_CDM)
+  }
+  dispatchComponentDidUnmount() {
+    this._eventBus.emit(EVENTS.FLOW_UNMOUNT)
   }
 
   show() {
