@@ -1,15 +1,9 @@
 import Block from '@/abstract/Block'
 
 class MainController {
-  private static instance: MainController
   mountedBlocks: Block[]
   constructor() {
-    if (!MainController.instance) {
-      MainController.instance = new MainController()
-      MainController.instance.mountedBlocks = []
-    } else {
-      return MainController.instance
-    }
+    this.mountedBlocks = []
   }
   addBlock(block: Block) {
     this.mountedBlocks.push(block)
