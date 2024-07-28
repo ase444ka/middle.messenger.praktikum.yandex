@@ -2,7 +2,7 @@ import {compile} from 'handlebars'
 import Block, {EventListeners, BlockProps} from '@/abstract/Block'
 import controller from '@/controllers/main'
 import './style.css'
-import inputController, {InputController} from '@/controllers/Signin/input'
+import inputController, {InputController} from '@/controllers/Form/input'
 import {Validation} from '@/utils/validate'
 
 export type InputData = {

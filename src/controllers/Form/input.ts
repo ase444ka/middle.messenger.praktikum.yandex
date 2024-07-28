@@ -24,10 +24,6 @@ export class InputController {
       }
     })
     controller.on('focus', (block: InputBlock) => {
-      if (block.isRendering) {
-        return
-      }
-      block.isFocused = true
       block.setProps({
         showError: false,
       })
