@@ -1,22 +1,18 @@
 import Block from '@/abstract/Block'
 import './style.css'
+import ChatInput from '@/blocks/chat/ChatInput'
 
 const template = /*jsx*/ `
 <form class="chat-page__form">
-  <label for="message" class="chat-page__form__attachment">
-    <input type="file" id="message" name="message">
+  <label for="file" class="chat-page__form__attachment">
+    <input type="file" id="file" name="file">
     <div class="chat-page__form__attachment__control">
         <svg>
             <use href="/assets/images/sprites.svg#attachment"></use>
         </svg>
     </div>
   </label>
-  <input
-    type="text"
-    class="chat-page__form__message"
-    name="message"
-    placeholder="Сообщение"
-  />
+  {{{input}}}
   <button type="submit" class="chat-page__form__submit">
       <svg>
           <use href="/assets/images/sprites.svg#arrow-right"></use>
@@ -26,7 +22,7 @@ const template = /*jsx*/ `
 `
 export default class ChatForm extends Block {
   constructor() {
-    super()
+    super({input: new ChatInput()})
     this._template = template
     this.init()
   }

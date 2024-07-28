@@ -1,52 +1,29 @@
 import {compile} from 'handlebars'
 import Block, {EventListeners, BlockProps} from '@/abstract/Block'
-import controller from '@/controllers/main'
 import './style.css'
+import controller from '@/controllers/main'
 import inputController, {InputController} from '@/controllers/Form/input'
 import {Validation} from '@/utils/validate'
-
-export type InputData = {
-  type: Validation
-  inputClass?: string
-  fieldName: string
-  inputName: string
-  txt?: string | number | boolean
-  readonly?: boolean
-}
-
-const template = /*jsx*/ `
-<div class='input 
-  {{inputClass}}
-  {{#if showError}}
-  input_error
-  {{/if}}
-  
-'>
-  <label for='{{fieldName}}' class='input__label'>
-    {{inputName}}
-  </label>
-  <div class='input__wrapper'>
-    <input
-      type='{{type}}'
-      id='{{fieldName}}'
-      class='input__input'
-      name='{{fieldName}}'
-      value='{{txt}}'
-      {{#if readonly}}
-      readonly
-      {{/if}}
-    />
-    
-  </div>
-</div>                                               
-`
 
 const errorTemplate = compile(
   '<div class="input__error">{{errorMessage}}</div>',
 )
 
+const template = /*jsx*/ `
+<div>
+<input
+    type="text"
+    class="chat-page__form__message"
+    name="{{inputName}}"
+    type="{{type}}"
+    placeholder="Сообщение"
+/>   
+</div>                                
+`
+
 const inputEvents: EventListeners = {
   focus: event => {
+    console.log('foc')
     const target = event.target as HTMLInputElement
     const value = target.value
     const rootNode = target.closest('[data-id]')! as HTMLElement
@@ -61,12 +38,14 @@ const inputEvents: EventListeners = {
   },
 }
 
-export default class InputBlock extends Block {
+export default class ChatInput extends Block {
   controller: InputController
 
-  constructor(data: InputData) {
+  constructor() {
     super({
-      ...data,
+      fieldName: 'message',
+      inputName: 'сообщение',
+      type: 'message',
       showError: false,
       errorMessage: '',
       isValid: false,
@@ -77,7 +56,6 @@ export default class InputBlock extends Block {
     this._template = template
     this.init()
   }
-
   _makePropsProxy(props: BlockProps) {
     props = new Proxy(props, {
       set: (target, prop, value, receiver) => {
@@ -107,9 +85,11 @@ export default class InputBlock extends Block {
     })
     return props
   }
+
   appendErrorMessage(errorMessage: string) {
     const templateElement = document.createElement('template')
     templateElement.innerHTML = errorTemplate({errorMessage})
+    console.log(templateElement)
     this._node.append(templateElement.content)
   }
   deleteErrorMessage() {
