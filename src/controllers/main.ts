@@ -1,8 +1,11 @@
 import Block from '@/abstract/Block'
+import EventBus from '@/abstract/EventBus'
 
-class MainController {
+export class MainController extends EventBus {
   mountedBlocks: Block[]
+
   constructor() {
+    super()
     this.mountedBlocks = []
   }
   addBlock(block: Block) {
@@ -10,6 +13,10 @@ class MainController {
   }
   removeBlock(id: string) {
     this.mountedBlocks = this.mountedBlocks.filter(b => b.id !== id)
+  }
+  dispatchEvent(eventName: string, value: string, id: string) {
+    const block: Block = this.mountedBlocks.find(b => b.id === id)!
+    this.emit(eventName, block, value)
   }
 }
 
