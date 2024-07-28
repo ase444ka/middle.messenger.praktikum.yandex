@@ -1,12 +1,12 @@
 enum Validations {
   name = '^[A-ZА-ЯЁ][a-zа-яё-]*',
-  password = '^[-_dw]*[a-zA-Z]+[-_dw]*$',
-  // eslint-disable-next-line quotes
-  email = "^[dw-_.!#$%&'*+/=?^`{}|~]+@[a-zA-Z]+.[dw-_.!#$%&'*+/=?^`{}|~]+$",
+  password = '^[-_\\d\\w]*[a-zA-Z]+[-_\\d\\w]*$',
+  // eslint-disable-next-line
+  email = "^[\\d\\w-_.!#$%&'*+/=?^`{}|~]+@[a-zA-Z]+.[\\d\\w-_.!#$%&'*+/=?^`{}|~]+$",
   message = '.',
-  phone = '^+?d+$',
+  phone = '^\\+?\\d+$',
 }
-type Validation = keyof typeof Validations
+export type Validation = keyof typeof Validations
 
 type ValMap<V extends string | number | symbol, T> = {[property in V]: T}
 
@@ -62,12 +62,10 @@ class Validator {
     }
   }
 }
-export function validate(type: Validation, str: string) {
+function validate(type: Validation, str: string) {
   const checker = new Validator(type, str)
-  try {
-    checker.checkAll()
-  } catch (e) {
-    return e.message
-  }
+  checker.checkAll()
   return true
 }
+
+export default validate
