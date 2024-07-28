@@ -98,10 +98,10 @@ export default class Block {
   _makePropsProxy(props: BlockProps) {
     props = new Proxy(props, {
       set: (target, prop, value, receiver) => {
-        const oldProps = Reflect.get(target, prop, receiver)
+        const oldProps = {...receiver}
         const newProps = {...receiver, [prop]: value}
         Reflect.set(target, prop, value, receiver)
-        this._eventBus.emit(EVENTS.FLOW_CDU, oldProps, newProps)
+        this.dispatchComponentDidUpdate(oldProps, newProps)
         return true
       },
       deleteProperty() {
@@ -317,13 +317,18 @@ export default class Block {
   _render() {
     const block = this._compile()
     this._removeEvents()
-    this._node.innerHTML = '' // удаляем предыдущее содержимое
+    this._node.innerHTML = ''
     this._node.append(block)
     this._addEvents()
+    this.dispatchComponentDidMount()
   }
 
   getContent() {
     return this._node
+  }
+
+  dispatchComponentDidUpdate(oldProps: BlockProps, newProps: BlockProps) {
+    this._eventBus.emit(EVENTS.FLOW_CDU, oldProps, newProps)
   }
 
   dispatchComponentDidMount() {
