@@ -1,5 +1,6 @@
 import controller, {MainController} from '@/controllers/main'
 import FormBlock from '@/blocks/auth/FormBlock'
+import ChatForm from '@/blocks/chat/ChatForm'
 import validate, {Validation} from '@/utils/validate'
 
 export class FormController {
@@ -12,7 +13,7 @@ export class FormController {
     controller.on(
       'submit',
       (
-        block: FormBlock,
+        block: FormBlock | ChatForm,
         value: {name: string; value: string; type: Validation}[],
       ) => {
         console.log(`Проверка формы ${block.id} `)

@@ -1,4 +1,6 @@
-import Block from '@/abstract/Block'
+import Block, {EventListeners} from '@/abstract/Block'
+import controller from '@/controllers/main'
+import formController, {FormController} from '@/controllers/Form/form'
 import './style.css'
 import ChatInput from '@/blocks/chat/ChatInput'
 
@@ -20,9 +22,23 @@ const template = /*jsx*/ `
   </button>
 </form>                                  
 `
+const formEvents: EventListeners = {
+  submit: event => {
+    event.preventDefault()
+    const target = event.target as HTMLFormElement
+    const value = (
+      target.querySelector('input:not([type="file"])') as HTMLInputElement
+    )?.value
+    const receivedData = [{value, name: 'message', type: 'message'}]
+    const rootNode = target.closest('[data-id]')! as HTMLElement
+    controller.dispatchEvent('submit', receivedData, rootNode.dataset.id!)
+  },
+}
 export default class ChatForm extends Block {
+  controller: FormController
   constructor() {
-    super({input: new ChatInput()})
+    super({input: new ChatInput(), events: formEvents})
+    this.controller = formController
     this._template = template
     this.init()
   }
