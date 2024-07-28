@@ -9,7 +9,7 @@ const form = new FormBlock({
     fields: [
       {
         inputName: 'Почта',
-        fieldName: 'login',
+        fieldName: 'email',
         readonly: false,
         type: 'email',
       },
@@ -51,7 +51,7 @@ const form = new FormBlock({
       },
     ],
     buttons: [
-      {title: 'Изменить данные', var: 'primary', action: 'alert("trololo")'},
+      {title: 'Изменить данные', var: 'primary', submit: true},
       {title: 'Изменить пароль', var: 'primary', action: 'alert("trololo")'},
       {title: 'Выйти', var: 'danger', action: 'alert("trololo")'},
     ],

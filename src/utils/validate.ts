@@ -37,14 +37,17 @@ class Validator {
     public str: string,
   ) {}
   checkLength() {
-    const {min, max} = Lengths[this.type]
-    if (typeof min === 'number') {
-      if (this.str.length < min) {
+    if (!this.str.length) {
+      return false
+    }
+    const lengths = Lengths[this.type]
+    if (lengths?.min) {
+      if (this.str.length < lengths.min) {
         return false
       }
     }
-    if (typeof max === 'number') {
-      if (this.str.length > max) {
+    if (lengths?.max) {
+      if (this.str.length > lengths.max) {
         return false
       }
     }

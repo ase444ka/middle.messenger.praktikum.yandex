@@ -1,5 +1,7 @@
-import Block from '@/abstract/Block'
+import Block, {EventListeners} from '@/abstract/Block'
 import InputBlock, {InputData} from '@/blocks/auth/InputBlock'
+import controller from '@/controllers/main'
+import formController, {FormController} from '@/controllers/Form/form'
 import ButtonBlock, {ButtonData} from '@/blocks/auth/ButtonBlock'
 import './style.css'
 
@@ -26,10 +28,33 @@ const template = /*jsx*/ `
   </form>
 `
 
-export default class FormBlock extends Block {
-  constructor(data: FormBlockData) {
-    super(data)
+function serializeForm(formNode: HTMLFormElement) {
+  const {elements} = formNode
+  const data = Array.from(elements)
+    .filter(item => item instanceof HTMLInputElement)
+    .map(element => {
+      const {name, value, type} = element
 
+      return {name, value, type}
+    })
+  return data
+}
+
+const formEvents: EventListeners = {
+  submit: event => {
+    event.preventDefault()
+    const target = event.target as HTMLFormElement
+    const receivedData = serializeForm(target)
+    const rootNode = target.closest('[data-id]')! as HTMLElement
+    controller.dispatchEvent('submit', receivedData, rootNode.dataset.id!)
+  },
+}
+
+export default class FormBlock extends Block {
+  controller: FormController
+  constructor(data: FormBlockData) {
+    super({...data, events: formEvents})
+    this.controller = formController
     this._template = template
     this.init()
   }
@@ -41,9 +66,10 @@ export default class FormBlock extends Block {
     const buttons = els.buttons.map(
       b =>
         new ButtonBlock({
-          title: b.title as string,
-          var: b.var as string,
-          action: b.action as string,
+          title: b.title,
+          var: b.var,
+          action: b.action,
+          submit: b.submit,
         }),
     )
     return {fields, buttons}

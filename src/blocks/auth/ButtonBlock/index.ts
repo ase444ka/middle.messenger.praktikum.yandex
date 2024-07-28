@@ -1,10 +1,17 @@
 import Block from '@/abstract/Block'
 import './style.css'
 
-export type ButtonData = {title: string; var?: string; action?: string}
+export type ButtonData = {
+  title: string
+  var?: string
+  action?: string
+  submit?: boolean
+}
 
 const template = /*jsx*/ `
-<button class='button button_{{var}}' onclick='{{action}}'>
+<button class='button button_{{var}}'
+        onclick='{{action}}'
+        {{#if submit}}type="submit"{{/if}}>
   {{title}}
 </button>
                                              
