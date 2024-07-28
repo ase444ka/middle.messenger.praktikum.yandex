@@ -51,9 +51,8 @@ const form = new FormBlock({
       },
     ],
     buttons: [
-      {title: 'Изменить данные', var: 'primary', submit: true},
-      {title: 'Изменить пароль', var: 'primary', action: 'alert("trololo")'},
-      {title: 'Выйти', var: 'danger', action: 'alert("trololo")'},
+      {title: 'Зарегистрироваться', var: 'primary', submit: true},
+      {title: 'Выйти', var: 'danger', action: 'alert("Давай, до свидания!")'},
     ],
   },
 })

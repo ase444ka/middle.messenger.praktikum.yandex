@@ -2,7 +2,7 @@ import render from '@/utils/render.js'
 // import CardBlock from '@/blocks/auth/CardBlock'
 // import FormBlock from '@/blocks/auth/FormBlock'
 // import ChatView, {ChatViewData} from '@/views/ChatView'
-import SigninView from '@/views/SigninView'
+import SignupView from '@/views/SignupView'
 
-const view = new SigninView()
+const view = new SignupView()
 render('#app', view)
