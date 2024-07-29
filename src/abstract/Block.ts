@@ -165,6 +165,7 @@ export default class Block {
     this.componentDidUnmount()
     this._removeEvents()
     this._unregisterBlock()
+    this._node.remove()
   }
 
   componentDidUnmount() {}
