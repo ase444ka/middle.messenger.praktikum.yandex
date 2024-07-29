@@ -28,6 +28,7 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid var(--grey-3);
+
     &:last-of-type {
       border: none;
     }
@@ -40,6 +41,9 @@
       border: none;
       padding: 0.7rem 0;
       color: var(--grey-1);
+      &:not([readonly]) {
+        color: var(--black);
+      }
     }
   }
   .button {
@@ -55,11 +59,11 @@
     &_primary {
       color: var(--blue);
     }
-    &_danger {
-      color: var(--error);
-    }
-    &:last-of-type {
-      border: none;
-    }
+  }
+  &__link {
+    text-align: start;
+    padding: 0.7rem 0;
+    font-size: 0.83rem;
+    color: var(--error);
   }
 }

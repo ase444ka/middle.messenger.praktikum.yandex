@@ -1,4 +1,4 @@
-import Block from '@/abstract/Block'
+import Block, {EventListeners} from '@/abstract/Block'
 import './style.css'
 
 export type ButtonData = {
@@ -6,6 +6,7 @@ export type ButtonData = {
   var?: string
   action?: string
   submit?: boolean
+  events?: EventListeners
 }
 
 const template = /*jsx*/ `

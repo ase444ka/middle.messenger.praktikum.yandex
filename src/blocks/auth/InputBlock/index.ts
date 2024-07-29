@@ -66,6 +66,7 @@ export default class InputBlock extends Block {
 
   constructor(data: InputData) {
     super({
+      readonly: false,
       ...data,
       showError: false,
       errorMessage: '',

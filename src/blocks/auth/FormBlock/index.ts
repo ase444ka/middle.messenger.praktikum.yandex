@@ -15,6 +15,7 @@ export type FormBlockData = {
   elements: FormElements
   linkText?: string
   linkHref?: string
+  linkClass?: string
 }
 
 const template = /*jsx*/ `
@@ -28,7 +29,7 @@ const template = /*jsx*/ `
       {{/each}}
     </div>
     {{#if linkText}}
-    <a class="form__link" href="{{linkHref}}">{{linkText}}</a>
+    <a class="form__link {{linkClass}}" href="{{linkHref}}">{{linkText}}</a>
     {{/if}}
   </form>
 `
@@ -66,15 +67,7 @@ export default class FormBlock extends Block {
 
   getElements(els: FormElements) {
     const fields = els.fields.map(f => new InputBlock(f))
-    const buttons = els.buttons.map(
-      b =>
-        new ButtonBlock({
-          title: b.title,
-          var: b.var,
-          action: b.action,
-          submit: b.submit,
-        }),
-    )
+    const buttons = els.buttons.map(b => new ButtonBlock(b))
     return {fields, buttons}
   }
 }

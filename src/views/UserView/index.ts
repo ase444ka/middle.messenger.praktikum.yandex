@@ -2,6 +2,8 @@ import Block from '@/abstract/Block'
 import FormBlock from '@/blocks/auth/FormBlock'
 import './style.css'
 const imgUrl = new URL('@/assets/images/ava.png', import.meta.url).href
+import controller from '@/controllers/main'
+import userController, {UserController} from '@/controllers/UserData/user'
 
 const form = new FormBlock({
   readonly: true,
@@ -65,11 +67,81 @@ const form = new FormBlock({
       },
     ],
     buttons: [
-      {title: 'Изменить данные', var: 'primary'},
-      {title: 'Изменить пароль', var: 'primary'},
-      {title: 'Выйти', var: 'danger', action: 'alert("Давай, до свидания!")'},
+      {
+        title: 'Изменить данные',
+        var: 'primary',
+        events: {
+          click: e => {
+            e.preventDefault()
+            const target = e.target as HTMLFormElement
+            const rootNode = target.closest('.form')! as HTMLElement
+            controller.dispatchEvent('editUser', true, rootNode.dataset.id!)
+          },
+        },
+      },
+      {
+        title: 'Изменить пароль',
+        var: 'primary',
+        events: {
+          click: e => {
+            e.preventDefault()
+            const target = e.target as HTMLElement
+
+            const rootNode = target.closest('main')! as HTMLElement
+
+            controller.dispatchEvent(
+              'changeForm',
+              {oldForm: form, newForm: passwordForm},
+              rootNode.dataset.id!,
+            )
+          },
+        },
+      },
     ],
   },
+
+  linkText: 'Выйти',
+  linkHref: '/',
+  linkClass: 'userdata__link',
+})
+
+const passwordForm = new FormBlock({
+  readonly: false,
+  elements: {
+    fields: [
+      {
+        inputName: 'Старый пароль',
+        txt: 'kkkj1_-Dlj',
+        fieldName: 'password',
+        type: 'password',
+        inputClass: 'userdata__input',
+      },
+      {
+        inputName: 'Новый пароль',
+        txt: 'kkkj1_-Dlj',
+        fieldName: 'password_2',
+        type: 'password',
+        inputClass: 'userdata__input',
+      },
+      {
+        inputName: 'Повторите новый пароль',
+        txt: 'kkkj1_-Dlj',
+        fieldName: 'password_3',
+        type: 'password',
+        inputClass: 'userdata__input',
+      },
+    ],
+    buttons: [
+      {
+        title: 'Сохранить',
+        var: 'primary',
+        submit: true,
+      },
+    ],
+  },
+  linkText: 'Выйти',
+  linkHref: '/',
+  linkClass: 'userdata__link',
 })
 
 const template = /*jsx*/ `
@@ -88,9 +160,16 @@ const template = /*jsx*/ `
 `
 
 export default class UserView extends Block {
+  controller: UserController
   constructor() {
     super({ava: imgUrl, form})
     this._template = template
+    this.controller = userController
     this.init()
+  }
+
+  changeForm(oldForm: FormBlock, newForm: FormBlock) {
+    oldForm.dispatchComponentDidUnmount()
+    this._node.querySelector('.userdata')!.append(newForm.getContent())
   }
 }
