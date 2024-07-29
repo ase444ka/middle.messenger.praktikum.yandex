@@ -4,12 +4,12 @@ const svgUrl = new URL('@/assets/images/sprites.svg#right', import.meta.url)
   .href
 
 const template = /*jsx*/ `
-  <а href="#" class="chat-page__tosettings">
+  <a href="#" class="chat-page__tosettings">
     <span>Профиль</span>
     <svg class="chat-page__tosettings__icon">
         <use href="{{svgUrl}}"></use>
     </svg>
-  </а>
+  </a>
 `
 
 export default class ProfileLink extends Block {
