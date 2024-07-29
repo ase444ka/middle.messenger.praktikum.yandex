@@ -9,29 +9,13 @@ export class UserController {
     this.registerEvents()
   }
   registerEvents() {
-    controller.on(
-      'editUser',
+    controller.on('editUser', (block: FormBlock) => {
+      block.setEditable()
+    })
 
-      (block: FormBlock) => {
-        const fields = block._children.fields
-        fields.forEach(f => {
-          f.setProps({readonly: false})
-        })
-        const firstField = fields[0].getContent().querySelector('input')
-        const end = firstField!.value.length
-        firstField?.focus()
-        setTimeout(() => {
-          firstField!.setAttribute('type', 'text')
-          firstField!.setSelectionRange(end, end)
-          firstField!.setAttribute('type', 'email')
-        })
-        try {
-          block.setEditable()
-        } catch {
-          console.log('catch', block)
-        }
-      },
-    )
+    controller.on('saveUser', (block: FormBlock) => {
+      block.setReadonly()
+    })
 
     controller.on(
       'changeForm',

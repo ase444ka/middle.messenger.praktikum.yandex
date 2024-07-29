@@ -25,6 +25,8 @@ export default class SearchInput extends Block {
     if (!input) {
       throw new Error('input did not rendered!')
     }
-    input.addEventListener('input', e => console.log(e.target))
+    input.addEventListener('input', e =>
+      console.log((e.target as HTMLInputElement).value),
+    )
   }
 }

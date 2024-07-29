@@ -24,7 +24,7 @@ export class FormController {
             alert(`Ошибка в поле "${entry.name}": ${e.message}`)
           }
         }
-        console.log(value)
+        console.log('Данные проверены, все ОК', value)
       },
     )
   }

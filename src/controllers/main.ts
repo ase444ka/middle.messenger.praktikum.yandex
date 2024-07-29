@@ -16,7 +16,6 @@ export class MainController extends EventBus {
   }
   dispatchEvent(eventName: string, value: unknown, id: string) {
     const block: Block = this.mountedBlocks.find(b => b.id === id)!
-    console.log(block)
     this.emit(eventName, block, value)
   }
 }

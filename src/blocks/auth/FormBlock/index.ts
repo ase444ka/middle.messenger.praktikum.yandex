@@ -78,16 +78,32 @@ export default class FormBlock extends Block {
     })
   }
 
-  setReadonly() {
-    this.toggleButtons()
-    this._children.fields.forEach(f => {
-      f.setProps({readonly: true})
-    })
-  }
   setEditable() {
     this.toggleButtons()
     this._children.fields.forEach(f => {
       f.setProps({readonly: false})
+    })
+
+    const firstField = this._children.fields[0]
+      .getContent()
+      .querySelector('input')
+    const end = firstField!.value.length
+    firstField?.focus()
+    const t = firstField!.getAttribute('type')
+    if (t === 'email') {
+      setTimeout(() => {
+        firstField!.setAttribute('type', 'text')
+        firstField!.setSelectionRange(end, end)
+        firstField!.setAttribute('type', 'email')
+      })
+    } else {
+      firstField!.setSelectionRange(end, end)
+    }
+  }
+  setReadonly() {
+    this.toggleButtons()
+    this._children.fields.forEach(f => {
+      f.setProps({readonly: true})
     })
   }
 }

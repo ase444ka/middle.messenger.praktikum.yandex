@@ -23,7 +23,6 @@ const template = /*jsx*/ `
 
 const inputEvents: EventListeners = {
   focus: event => {
-    console.log('foc')
     const target = event.target as HTMLInputElement
     const value = target.value
     const rootNode = target.closest('[data-id]')! as HTMLElement
@@ -89,7 +88,6 @@ export default class ChatInput extends Block {
   appendErrorMessage(errorMessage: string) {
     const templateElement = document.createElement('template')
     templateElement.innerHTML = errorTemplate({errorMessage})
-    console.log(templateElement)
     this._node.append(templateElement.content)
   }
   deleteErrorMessage() {
