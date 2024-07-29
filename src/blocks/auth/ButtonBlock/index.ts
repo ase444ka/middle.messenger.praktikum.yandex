@@ -7,10 +7,18 @@ export type ButtonData = {
   action?: string
   submit?: boolean
   events?: EventListeners
+  buttonClass?: string
+  hidden?: boolean
 }
 
 const template = /*jsx*/ `
-<button class='button button_{{var}}'
+<button class='
+  button
+  button_{{var}} 
+  {{#if hidden}}
+  hidden
+  {{/if}}
+  '
         onclick='{{action}}'
         {{#if submit}}type="submit"{{/if}}>
   {{title}}
@@ -19,9 +27,12 @@ const template = /*jsx*/ `
 `
 
 export default class ButtonBlock extends Block {
-  constructor(props: ButtonData) {
-    super(props)
+  constructor(data: ButtonData) {
+    super({hidden: false, ...data})
     this._template = template
     this.init()
+  }
+  toggleVisibility() {
+    this._props.hidden = !this._props.hidden
   }
 }

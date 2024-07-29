@@ -12,22 +12,24 @@ export class UserController {
     controller.on(
       'editUser',
 
-      (block: UserView) => {
-        console.log(block._children)
-        console.log(block._props)
+      (block: FormBlock) => {
         const fields = block._children.fields
         fields.forEach(f => {
           f.setProps({readonly: false})
         })
         const firstField = fields[0].getContent().querySelector('input')
         const end = firstField!.value.length
-        console.log(end)
         firstField?.focus()
         setTimeout(() => {
           firstField!.setAttribute('type', 'text')
           firstField!.setSelectionRange(end, end)
           firstField!.setAttribute('type', 'email')
         })
+        try {
+          block.setEditable()
+        } catch {
+          console.log('catch', block)
+        }
       },
     )
 

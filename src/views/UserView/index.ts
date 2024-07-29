@@ -97,6 +97,12 @@ const form = new FormBlock({
           },
         },
       },
+      {
+        title: 'Сохранить',
+        var: 'primary',
+        submit: true,
+        hidden: true,
+      },
     ],
   },
 

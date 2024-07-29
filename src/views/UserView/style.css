@@ -25,8 +25,8 @@
   }
   &__input {
     font-size: 0.83rem;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     border-bottom: 1px solid var(--grey-3);
 
     &:last-of-type {
@@ -44,6 +44,9 @@
       &:not([readonly]) {
         color: var(--black);
       }
+    }
+    .input__error {
+      grid-area: span1 / span 2;
     }
   }
   .button {

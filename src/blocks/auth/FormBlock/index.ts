@@ -70,4 +70,24 @@ export default class FormBlock extends Block {
     const buttons = els.buttons.map(b => new ButtonBlock(b))
     return {fields, buttons}
   }
+
+  toggleButtons() {
+    this._children.buttons.forEach(b => {
+      const bl = b as ButtonBlock
+      bl.toggleVisibility()
+    })
+  }
+
+  setReadonly() {
+    this.toggleButtons()
+    this._children.fields.forEach(f => {
+      f.setProps({readonly: true})
+    })
+  }
+  setEditable() {
+    this.toggleButtons()
+    this._children.fields.forEach(f => {
+      f.setProps({readonly: false})
+    })
+  }
 }
