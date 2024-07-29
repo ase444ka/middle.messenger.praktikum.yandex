@@ -31,7 +31,6 @@
 
 @define-mixin vertical-flow {
   display: grid;
-  flex-direction: column;
   gap: 20px;
 }
 

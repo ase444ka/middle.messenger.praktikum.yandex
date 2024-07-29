@@ -58,9 +58,6 @@
     &_danger {
       color: var(--error);
     }
-    &:first-of-type {
-      margin-top: 5rem;
-    }
     &:last-of-type {
       border: none;
     }

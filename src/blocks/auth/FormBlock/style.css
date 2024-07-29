@@ -1,8 +1,7 @@
 .form {
-  @mixin vertical-flow;
   &__buttons {
     @mixin vertical-flow;
-    align-self: flex-end;
+    margin-top: 40px;
     .button {
       display: block;
       text-align: center;
