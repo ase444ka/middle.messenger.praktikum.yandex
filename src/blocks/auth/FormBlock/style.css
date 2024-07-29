@@ -1,4 +1,5 @@
 .form {
+  display: grid;
   &__buttons {
     @mixin vertical-flow;
     margin-top: 40px;

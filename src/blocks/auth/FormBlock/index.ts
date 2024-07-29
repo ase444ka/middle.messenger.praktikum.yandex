@@ -16,7 +16,7 @@ export type FormBlockData = {
 }
 
 const template = /*jsx*/ `
-  <form>
+  <form class="form">
     {{#each fields}}
       {{{this}}}
     {{/each}}
@@ -60,9 +60,7 @@ export default class FormBlock extends Block {
   }
 
   getElements(els: FormElements) {
-    const fields = els.fields.map(
-      f => new InputBlock({...f, inputClass: 'form__input'}),
-    )
+    const fields = els.fields.map(f => new InputBlock(f))
     const buttons = els.buttons.map(
       b =>
         new ButtonBlock({

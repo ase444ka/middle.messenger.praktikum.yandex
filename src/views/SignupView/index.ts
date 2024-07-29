@@ -12,6 +12,7 @@ const form = new FormBlock({
         fieldName: 'email',
         readonly: false,
         type: 'email',
+        inputClass: 'form__input',
       },
 
       {
@@ -19,6 +20,7 @@ const form = new FormBlock({
         fieldName: 'password',
         readonly: false,
         type: 'password',
+        inputClass: 'form__input',
       },
     ],
     buttons: [
