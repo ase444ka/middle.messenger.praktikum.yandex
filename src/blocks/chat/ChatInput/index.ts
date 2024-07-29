@@ -10,7 +10,7 @@ const errorTemplate = compile(
 )
 
 const template = /*jsx*/ `
-<div>
+<div class="chat-page__form__message-wrapper">
 <input
     type="text"
     class="chat-page__form__message"
