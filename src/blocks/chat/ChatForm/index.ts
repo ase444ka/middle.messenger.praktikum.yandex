@@ -3,6 +3,14 @@ import controller from '@/controllers/main'
 import formController, {FormController} from '@/controllers/Form/form'
 import './style.css'
 import ChatInput from '@/blocks/chat/ChatInput'
+const svgUrl1 = new URL(
+  '@/assets/images/sprites.svg#attachment',
+  import.meta.url,
+).href
+const svgUrl2 = new URL(
+  '@/assets/images/sprites.svg#arrow-right',
+  import.meta.url,
+).href
 
 const template = /*jsx*/ `
 <form class="chat-page__form">
@@ -10,14 +18,14 @@ const template = /*jsx*/ `
     <input type="file" id="file" name="file">
     <div class="chat-page__form__attachment__control">
         <svg>
-            <use href="/assets/images/sprites.svg#attachment"></use>
+            <use href="{{svgUrl1}}"></use>
         </svg>
     </div>
   </label>
   {{{input}}}
   <button type="submit" class="chat-page__form__submit">
       <svg>
-          <use href="/assets/images/sprites.svg#arrow-right"></use>
+          <use href="{{svgUrl2}}"></use>
       </svg>
   </button>
 </form>                                  
@@ -37,7 +45,7 @@ const formEvents: EventListeners = {
 export default class ChatForm extends Block {
   controller: FormController
   constructor() {
-    super({input: new ChatInput(), events: formEvents})
+    super({svgUrl1, svgUrl2, input: new ChatInput(), events: formEvents})
     this.controller = formController
     this._template = template
     this.init()

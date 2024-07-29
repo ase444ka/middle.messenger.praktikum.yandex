@@ -1,6 +1,7 @@
 import Block from '@/abstract/Block'
 import FormBlock from '@/blocks/auth/FormBlock'
 import './style.css'
+const imgUrl = new URL('@/assets/images/ava.png', import.meta.url).href
 
 const form = new FormBlock({
   readonly: true,
@@ -76,7 +77,7 @@ const template = /*jsx*/ `
     <div class="userdata">
       <div class="userdata__avatar">
         <img
-          src="/assets/images/ava.png"
+          src="{{ava}}"
           alt="avatar"
           class="userdata__avatar-image" />
       </div>
@@ -88,7 +89,7 @@ const template = /*jsx*/ `
 
 export default class UserView extends Block {
   constructor() {
-    super({form})
+    super({ava: imgUrl, form})
     this._template = template
     this.init()
   }

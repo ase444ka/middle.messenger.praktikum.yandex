@@ -1,18 +1,20 @@
 import Block from '@/abstract/Block'
 import './style.css'
+const svgUrl = new URL('@/assets/images/sprites.svg#right', import.meta.url)
+  .href
 
 const template = /*jsx*/ `
   <а href="#" class="chat-page__tosettings">
     <span>Профиль</span>
     <svg class="chat-page__tosettings__icon">
-        <use href="/assets/images/sprites.svg#right"></use>
+        <use href="{{svgUrl}}"></use>
     </svg>
   </а>
 `
 
 export default class ProfileLink extends Block {
   constructor() {
-    super()
+    super({svgUrl})
     this._template = template
     this.init()
   }

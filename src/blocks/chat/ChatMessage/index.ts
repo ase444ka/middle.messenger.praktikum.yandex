@@ -1,5 +1,7 @@
 import Block, {BlockChildrenData, EventListeners} from '@/abstract/Block'
 import './style.css'
+const svgUrl = new URL('@/assets/images/sprites.svg#seen', import.meta.url).href
+const imgUrl = new URL('@/assets/images/m.png', import.meta.url).href
 
 export type MessageData = {
   img?: string
@@ -23,7 +25,7 @@ const template = /*jsx*/ `
     "
 >
     {{#if img}}
-      <img src="/assets/images/m.png" alt="printscreen"/>
+      <img src="{{imgUrl}}" alt="printscreen"/>
     {{else}} 
       {{text}}
     {{/if}}
@@ -31,7 +33,7 @@ const template = /*jsx*/ `
     {{#if isYours}}
       <div class="chat-page__chat__baige chat-page__chat__baige_seen">
         <svg>
-            <use href="/assets/images/sprites.svg#seen"></use>
+            <use href="{{svgUrl}}"></use>
         </svg>
       </div>
     {{/if}}
@@ -42,7 +44,7 @@ const template = /*jsx*/ `
 
 export default class ChatMessage extends Block {
   constructor(data: MessageData) {
-    super(data)
+    super({...data, svgUrl, imgUrl})
     this._template = template
     this.init()
   }

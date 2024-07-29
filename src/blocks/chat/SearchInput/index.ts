@@ -1,10 +1,12 @@
 import Block from '@/abstract/Block'
 import './style.css'
+const svgUrl = new URL('@/assets/images/sprites.svg#magnify', import.meta.url)
+  .href
 
 const template = /*jsx*/ `
 <div class="chat-page__search">
   <svg class="chat-page__search__icon">
-      <use href="/assets/images/sprites.svg#magnify"></use>
+      <use href="{{svgUrl}}"></use>
   </svg>
     <input class="chat-page__search__input" placeholder="Поиск"></input>
 </div>                                   
@@ -12,7 +14,7 @@ const template = /*jsx*/ `
 
 export default class SearchInput extends Block {
   constructor() {
-    super()
+    super({svgUrl})
     this._template = template
     this.init()
   }
