@@ -8,7 +8,8 @@
     "start": "vite",
     "build": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky"
+    "prepare": "husky",
+    "preview": "vite preview"
   },
   "author": "Istomina Asya",
   "license": "ISC",
