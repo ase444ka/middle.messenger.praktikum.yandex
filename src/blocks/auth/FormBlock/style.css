@@ -42,4 +42,11 @@
       font-size: 10px;
     }
   }
+  &__link {
+    display: block;
+    color: var(--blue);
+    text-decoration: none;
+    margin-top: 10px;
+    text-align: center;
+  }
 }

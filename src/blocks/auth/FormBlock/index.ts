@@ -13,6 +13,8 @@ type FormElements = {
 export type FormBlockData = {
   readonly: boolean
   elements: FormElements
+  linkText?: string
+  linkHref?: string
 }
 
 const template = /*jsx*/ `
@@ -25,6 +27,9 @@ const template = /*jsx*/ `
         {{{this}}}
       {{/each}}
     </div>
+    {{#if linkText}}
+    <a class="form__link" href="{{linkHref}}">{{linkText}}</a>
+    {{/if}}
   </form>
 `
 
