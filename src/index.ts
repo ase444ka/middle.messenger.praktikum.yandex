@@ -5,7 +5,7 @@ import Block from '@/abstract/Block'
 import {chatData} from '@/data/user'
 import SignupView from '@/views/SignupView'
 import SigninView from '@/views/SigninView'
-
+import UserView from '@/views/UserView'
 import ErrorView from '@/views/ErrorView'
 import ChatView from '@/views/ChatView'
 
@@ -60,6 +60,12 @@ const navigate = (href: string) => {
       const chat = new ChatView(chatData)
       changeCurrent(chat)
       render('#app', chat)
+      break
+    }
+    case 'user_page': {
+      const user = new UserView()
+      changeCurrent(user)
+      render('#app', user)
       break
     }
     case '404_page': {
