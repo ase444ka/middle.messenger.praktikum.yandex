@@ -27,7 +27,6 @@ module.exports = {
     'no-await-in-loop': 'error',
     'no-duplicate-imports': 'error',
     '@stylistic/js/no-trailing-spaces': 'error',
-    indent: ['error', 2],
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
