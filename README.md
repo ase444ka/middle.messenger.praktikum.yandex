@@ -32,5 +32,6 @@ npm run build
 |   o | блоки         |
 |   o | контроллеры   |
 |   o | httpTransport |
+|     |               |
 
 </details>
