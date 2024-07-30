@@ -2,6 +2,7 @@
   display: flex;
   height: 100%;
   box-sizing: border-box;
+
   &__nav {
     display: flex;
     flex-direction: column;
@@ -17,26 +18,33 @@
     grid-area: a;
     width: 50px;
     height: 50px;
+
     @mixin avatar;
   }
+
   &__chat-title {
     grid-area: b;
+
     @mixin chatname;
   }
+
   &__chat-last {
     grid-area: d;
     color: var(--grey-1);
     font-size: 0.85rem;
   }
+
   &__chat-yours {
     color: var(--black);
   }
+
   &__chat-date {
     grid-area: c;
     color: var(--grey-1);
     font-size: 0.8rem;
     justify-self: end;
   }
+
   &__chat-counter {
     grid-area: f;
     justify-self: end;
@@ -50,6 +58,7 @@
     place-items: center;
     box-sizing: border-box;
   }
+
   &__tosettings {
     border: none;
     outline: none;
@@ -61,9 +70,11 @@
     display: flex;
     align-items: center;
     margin-bottom: 20px;
+
     span {
       padding-top: 5px;
     }
+
     &__icon {
       display: inline;
       width: 20px;
@@ -83,13 +94,16 @@
       color: var(--grey-1);
       padding: 10px;
     }
+
     &__baige {
       width: 10px;
       height: 5px;
+
       svg {
         width: 10px;
         height: 10px;
       }
+
       &_seen {
         color: var(--blue);
       }

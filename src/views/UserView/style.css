@@ -6,10 +6,12 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   &__avatar {
     width: 102px;
     height: 102px;
     margin: 0 auto 2rem;
+
     &-image {
       border: 1px solid transparent;
       width: 100%;
@@ -18,11 +20,13 @@
       object-fit: cover;
     }
   }
+
   &__title {
     font-size: 1rem;
     text-align: center;
     margin: 0 0 3rem;
   }
+
   &__input {
     font-size: 0.83rem;
     display: grid;
@@ -32,23 +36,30 @@
     &:last-of-type {
       border: none;
     }
-    .input__label {
-      color: var(--black);
-      padding: 0.7rem 0;
-    }
-    .input__input {
-      outline: none;
-      border: none;
-      padding: 0.7rem 0;
-      color: var(--grey-1);
-      &:not([readonly]) {
+
+    .input {
+      &__label {
         color: var(--black);
+        padding: 0.7rem 0;
+      }
+
+      &__input {
+        outline: none;
+        border: none;
+        padding: 0.7rem 0;
+        color: var(--grey-1);
+
+        &:not([readonly]) {
+          color: var(--black);
+        }
+      }
+
+      &__error {
+        grid-area: span1 / span 2;
       }
     }
-    .input__error {
-      grid-area: span1 / span 2;
-    }
   }
+
   .button {
     border: none;
     outline: none;
@@ -59,10 +70,12 @@
     text-align: start;
     padding: 0.7rem 0;
     border-bottom: 1px solid var(--grey-3);
+
     &_primary {
       color: var(--blue);
     }
   }
+
   &__link {
     text-align: start;
     padding: 0.7rem 0;

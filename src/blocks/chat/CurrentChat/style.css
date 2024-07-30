@@ -5,18 +5,25 @@
     padding: 10px 20px;
     flex-grow: 1;
   }
+
   &__title {
     border-bottom: 1px solid var(--grey-3);
+
     @mixin chatgrid;
+
     &__avatar {
       width: 34px;
       height: 34px;
+
       @mixin avatar;
     }
+
     &__header {
       @mixin chatname;
+
       font-size: 0.9rem;
     }
+
     &__button {
       background: none;
       outline: none;
