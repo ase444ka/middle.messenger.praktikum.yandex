@@ -32,6 +32,6 @@ npm run build
 |   o | блоки         |
 |   o | контроллеры   |
 |   o | httpTransport |
-|     |               |
+|   o | styleLint     |
 
 </details>
