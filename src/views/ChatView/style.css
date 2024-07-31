@@ -1,0 +1,112 @@
+.chat-page {
+  display: flex;
+  height: 100%;
+  box-sizing: border-box;
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 20%;
+    background-color: var(--grey-5);
+    border-right: 1px solid var(--grey-3);
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 1.5rem;
+  }
+
+  &__chat-avatar {
+    grid-area: a;
+    width: 50px;
+    height: 50px;
+
+    @mixin avatar;
+  }
+
+  &__chat-title {
+    grid-area: b;
+
+    @mixin chatname;
+  }
+
+  &__chat-last {
+    grid-area: d;
+    color: var(--grey-1);
+    font-size: 0.85rem;
+  }
+
+  &__chat-yours {
+    color: var(--black);
+  }
+
+  &__chat-date {
+    grid-area: c;
+    color: var(--grey-1);
+    font-size: 0.8rem;
+    justify-self: end;
+  }
+
+  &__chat-counter {
+    grid-area: f;
+    justify-self: end;
+    background: var(--blue);
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: var(--white);
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+  }
+
+  &__tosettings {
+    border: none;
+    outline: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.8rem;
+    color: var(--grey-1);
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+
+    span {
+      padding-top: 5px;
+    }
+
+    &__icon {
+      display: inline;
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__chat {
+    &__additional {
+      margin-right: 0;
+      margin-left: auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.6rem;
+      color: var(--grey-1);
+      padding: 10px;
+    }
+
+    &__baige {
+      width: 10px;
+      height: 5px;
+
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+
+      &_seen {
+        color: var(--blue);
+      }
+    }
+  }
+}

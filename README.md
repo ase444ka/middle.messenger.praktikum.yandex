@@ -1,4 +1,3 @@
-
 # Мой прекрасный чат
 
 Учебный проект по программе "Middle фронтенд-разработчик" от Яндекс-Практикума.
@@ -12,7 +11,6 @@
 npm run dev
 ```
 
-
 ## Сборка в production
 
 ```
@@ -23,3 +21,17 @@ npm run build
 
 [Список сверстанных страниц с возможностью просмотра здесь](https://messenger-for-practice.netlify.app/)
 
+<details>
+<summary>Добавлены следующие вещи</summary>
+
+|     |               |
+| --: | ------------- |
+|   o | eslint        |
+|   o | prettier      |
+|   o | husky         |
+|   o | блоки         |
+|   o | контроллеры   |
+|   o | httpTransport |
+|   o | styleLint     |
+
+</details>

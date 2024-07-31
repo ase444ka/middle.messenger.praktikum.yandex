@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "outDir": "dist",
+        "declaration": false,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "strictNullChecks": true,
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "esModuleInterop": true,
+        "strictFunctionTypes": false,
+        "paths": {
+            "@/*": ["./src/*"]
+          }
+   }
+}

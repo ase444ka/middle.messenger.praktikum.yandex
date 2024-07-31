@@ -1,0 +1,14 @@
+.chat-page {
+  &__form {
+    &__message {
+      @mixin chatinput;
+
+      border-radius: 30px;
+
+      &-wrapper {
+        display: grid;
+        justify-content: stretch;
+      }
+    }
+  }
+}

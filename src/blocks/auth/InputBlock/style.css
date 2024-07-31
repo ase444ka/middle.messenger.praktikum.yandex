@@ -1,0 +1,9 @@
+.input {
+  &_error input {
+    color: var(--red);
+  }
+
+  &__error {
+    color: var(--red);
+  }
+}

@@ -5,9 +5,10 @@
   border-radius: 50px;
   background: var(--grey-2);
 }
+
 @define-mixin chatname {
   color: var(--black);
-  font-weight: Bold;
+  font-weight: bold;
 }
 
 @define-mixin chatgrid {
@@ -24,56 +25,39 @@
   border: none;
   padding: 12px 20px;
   font-size: 0.9rem;
+
   &::placeholder {
     color: var(--grey-1);
   }
 }
 
+@define-mixin vertical-flow {
+  display: grid;
+  gap: 20px;
+}
+
 :root {
-  --white: #ffffff;
+  --white: #fff;
   --black: #1e1e1e;
   --red: #ff2f2f;
   --blue: #3369f3;
   --light-blue: #e4edfd;
-  --grey-1: #999999;
+  --grey-1: #999;
   --grey-2: #eaeaea;
   --grey-3: #efefef;
   --grey-4: #f8f8f8;
   --grey-5: #fbfbfb;
-
   --error: var(--red);
   --success: var(--blue);
   --primary: var(--blue);
 }
 
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 500;
 }
 
-.test {
-  color: red;
-}
-
-.reference-page {
-  &__title {
-    text-align: center;
-  }
-  &__list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin: 0 20px;
-  }
-  &__item {
-    list-style-type: none;
-  }
-
-  &__ref {
-    text-decoration: none;
-    color: green;
-    font-size: 20px;
-  }
+.hidden {
+  display: none !important;
 }

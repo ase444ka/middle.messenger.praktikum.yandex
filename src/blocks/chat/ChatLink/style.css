@@ -1,0 +1,64 @@
+.chat-page {
+  &__link {
+    display: grid;
+    grid-template-columns: 50px auto 1fr;
+    gap: 0.3rem;
+    grid-template-areas:
+      'a b c'
+      'a d e'
+      'a d f';
+    justify-items: start;
+    border-top: 1px solid var(--grey-2);
+    font-size: 0.9rem;
+    padding: 1rem 10px;
+
+    &:first-of-type {
+      margin-top: 1.5rem;
+    }
+  }
+
+  &__chat-avatar {
+    grid-area: a;
+    width: 50px;
+    height: 50px;
+
+    @mixin avatar;
+  }
+
+  &__chat-title {
+    grid-area: b;
+
+    @mixin chatname;
+  }
+
+  &__chat-last {
+    grid-area: d;
+    color: var(--grey-1);
+    font-size: 0.85rem;
+  }
+
+  &__chat-yours {
+    color: var(--black);
+  }
+
+  &__chat-date {
+    grid-area: c;
+    color: var(--grey-1);
+    font-size: 0.8rem;
+    justify-self: end;
+  }
+
+  &__chat-counter {
+    grid-area: f;
+    justify-self: end;
+    background: var(--blue);
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    border-radius: 50%;
+    color: var(--white);
+    display: grid;
+    place-items: center;
+    box-sizing: border-box;
+  }
+}

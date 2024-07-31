@@ -1,0 +1,31 @@
+.chat-page {
+  &__chat {
+    &__message {
+      color: var(--black);
+      font-size: 0.8rem;
+      padding: 10px 0 0 10px;
+      border-radius: 10px;
+      background: var(--grey-3);
+      width: 45%;
+      flex-grow: 0;
+
+      &_image {
+        padding: 0;
+        border: 1px solid var(--grey-2);
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          padding: 0;
+          object-fit: contain;
+        }
+      }
+
+      &_yours {
+        align-self: end;
+        background: var(--light-blue);
+        border-bottom-right-radius: 0;
+      }
+    }
+  }
+}

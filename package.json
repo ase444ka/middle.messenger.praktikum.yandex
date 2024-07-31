@@ -8,26 +8,43 @@
     "start": "vite",
     "build": "vite build",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky",
+    "preview": "vite preview",
+    "lint-styles": "stylelint \"**/*.css\" --fix\"",
+    "lint-scripts": "eslint . --fix",
+    "lint": "npm run lint-styles && npm run lint-scripts"
   },
   "author": "Istomina Asya",
   "license": "ISC",
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "@types/uuid": "^10.0.0",
+    "normalize.css": "^8.0.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
+    "@stylistic/eslint-plugin-ts": "^2.3.0",
+    "@types/postcss-mixins": "^9.0.5",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "eslint": "^8.57.0",
     "husky": "^9.0.11",
     "lint-staged": "^15.2.7",
     "postcss": "^8.4.39",
     "postcss-mixins": "^10.0.1",
     "postcss-nested": "^6.0.1",
     "prettier": "^3.3.2",
+    "stylelint": "^16.8.0",
+    "stylelint-config-standard-scss": "^13.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3",
     "vite": "^5.3.3",
     "vite-plugin-handlebars": "^2.0.0"
   },
   "type": "module",
   "lint-staged": {
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,css,md,ts,cjs,mjs}": "prettier --write",
+    "*.{css}": "stylelint --fix",
+    "*.{ts,js,cjs,mjs}": "eslint --fix"
   },
   "engines": {
     "node": ">=18"
