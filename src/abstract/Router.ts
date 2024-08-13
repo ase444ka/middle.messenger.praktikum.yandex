@@ -42,7 +42,7 @@ class Route {
   }
 }
 
-export class Router {
+export default class Router {
   static __instance: Router
   routes: Route[]
   history: History

@@ -1,79 +1,97 @@
-import render from '@/utils/render.js'
+// import render from '@/utils/render.js'
 
-import Block from '@/abstract/Block'
+// import Block from '@/abstract/Block'
+import Router from '@/abstract/Router'
 
-import {chatData} from '@/data/user'
+// import {chatData} from '@/data/user'
 import SignupView from '@/views/SignupView'
 import SigninView from '@/views/SigninView'
 import UserView from '@/views/UserView'
 import ErrorView from '@/views/ErrorView'
 import ChatView from '@/views/ChatView'
-import ReferenceView from '@/views/ReferenceView'
+// import ReferenceView from '@/views/ReferenceView'
 
-let current: Block | null = null
+// let current: Block | null = null
 
-const changeCurrent = (newBlock: Block | null) => {
-  if (current) {
-    current.dispatchComponentDidUnmount()
-  }
-  current = newBlock
-  render('#app', current!)
-}
+const router = new Router('#app')
 
-const navigate = (href: string) => {
-  switch (href) {
-    case 'signin_page': {
-      const signin = new SigninView()
-      changeCurrent(signin)
-      break
-    }
-    case 'signup_page': {
-      const signup = new SignupView()
-      changeCurrent(signup)
-      break
-    }
-    case 'chats_page': {
-      const chat = new ChatView(chatData)
-      changeCurrent(chat)
-      break
-    }
-    case 'user_page': {
-      const user = new UserView()
-      changeCurrent(user)
-      break
-    }
-    case '404_page': {
-      const err404 = new ErrorView({
-        status: '404',
-        message: 'не туда попали',
-      })
-      changeCurrent(err404)
-      break
-    }
-    case '500_page': {
-      const err500 = new ErrorView({
-        status: '500',
-        message: 'ошибка на сервере',
-      })
-      changeCurrent(err500)
-      break
-    }
-    case '': {
-      const ref = new ReferenceView()
-      changeCurrent(ref)
-      break
-    }
-    default: {
-      const err404 = new ErrorView({
-        status: '404',
-        message: 'не туда попали',
-      })
-      changeCurrent(err404)
-    }
-  }
-}
+router.use('/signin_page', SigninView)
+router.use('/signup_page', SignupView)
+router.use('/chats_page', ChatView)
+router.use('/user_page', UserView)
+router.use('/404_page', ErrorView)
+// Router.use('', SigninView)
+router.use('/', SigninView)
+// Router.use('', SigninView)
+// Router.use('', SigninView)
+// Router.use('', SigninView)
+// Router.use('', SigninView)
+// Router.use('', SigninView)
 
-window.addEventListener('load', () => {
-  const url = window.location.pathname
-  navigate(url.slice(1))
-})
+router.start()
+
+// const changeCurrent = (newBlock: Block | null) => {
+//   if (current) {
+//     current.dispatchComponentDidUnmount()
+//   }
+//   current = newBlock
+//   render('#app', current!)
+// }
+
+// const navigate = (href: string) => {
+//   switch (href) {
+//     case 'signin_page': {
+//       const signin = new SigninView()
+//       changeCurrent(signin)
+//       break
+//     }
+//     case 'signup_page': {
+//       const signup = new SignupView()
+//       changeCurrent(signup)
+//       break
+//     }
+//     case 'chats_page': {
+//       const chat = new ChatView(chatData)
+//       changeCurrent(chat)
+//       break
+//     }
+//     case 'user_page': {
+//       const user = new UserView()
+//       changeCurrent(user)
+//       break
+//     }
+//     case '404_page': {
+//       const err404 = new ErrorView({
+//         status: '404',
+//         message: 'не туда попали',
+//       })
+//       changeCurrent(err404)
+//       break
+//     }
+//     case '500_page': {
+//       const err500 = new ErrorView({
+//         status: '500',
+//         message: 'ошибка на сервере',
+//       })
+//       changeCurrent(err500)
+//       break
+//     }
+//     case '': {
+//       const ref = new ReferenceView()
+//       changeCurrent(ref)
+//       break
+//     }
+//     default: {
+//       const err404 = new ErrorView({
+//         status: '404',
+//         message: 'не туда попали',
+//       })
+//       changeCurrent(err404)
+//     }
+//   }
+// }
+
+// window.addEventListener('load', () => {
+//   const url = window.location.pathname
+//   navigate(url.slice(1))
+// })
