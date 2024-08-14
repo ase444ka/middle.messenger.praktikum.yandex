@@ -45,17 +45,20 @@ function queryStringify(data: RequestData) {
     .slice(0, -1)
 }
 
-export class HTTPTransport {
-  get = (url: string, options: HTTPOptions) => {
-    url += queryStringify(options.data)
+export default class HTTPTransport {
+  constructor(public base: string) {}
+  get = (url: string, options: HTTPOptions = {}) => {
+    url = this.base + url + queryStringify(options.data)
     return this.request(url, {method: METHODS.GET}, options.timeout)
   }
 
   put = (url: string, options: HTTPOptions) => {
+    url = this.base + url
     return this.request(url, {...options, method: METHODS.PUT}, options.timeout)
   }
 
-  post = (url: string, options: HTTPOptions) => {
+  post = (url: string, options: HTTPOptions = {}) => {
+    url = this.base + url
     return this.request(
       url,
       {...options, method: METHODS.POST},
@@ -64,6 +67,7 @@ export class HTTPTransport {
   }
 
   delete = (url: string, options: HTTPOptions) => {
+    url = this.base + url
     return this.request(
       url,
       {...options, method: METHODS.POST},
