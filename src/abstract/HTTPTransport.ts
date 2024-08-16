@@ -7,9 +7,13 @@ enum METHODS {
 
 type HTTPOptions = {
   data?: RequestData
-  headers?: {[key: string]: string}
+  mode?: 'cors' | 'no-cors'
+  credendials?: 'include'
+  headers?: {contentType?: string}
   timeout?: number
 }
+
+const baseUrl = 'http://ya-praktikum.tech/api/v2'
 
 type RequestOptions = HTTPOptions & {method: keyof typeof METHODS}
 
@@ -46,7 +50,10 @@ function queryStringify(data: RequestData) {
 }
 
 export default class HTTPTransport {
-  constructor(public base: string) {}
+  base: string
+  constructor(base: string) {
+    this.base = baseUrl + base
+  }
   get = (url: string, options: HTTPOptions = {}) => {
     url = this.base + url + queryStringify(options.data)
     return this.request(url, {method: METHODS.GET}, options.timeout)
@@ -80,7 +87,7 @@ export default class HTTPTransport {
     options: RequestOptions = {method: METHODS.GET},
     timeout: number = 5000,
   ) {
-    const {method, data} = options
+    const {method, data, headers} = options
 
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
@@ -94,6 +101,9 @@ export default class HTTPTransport {
       xhr.onabort = reject
       xhr.onerror = reject
       xhr.ontimeout = reject
+
+      const contentType = headers?.contentType || 'application/json'
+      xhr.setRequestHeader('Content-Type', contentType)
 
       if (method === METHODS.GET || !data) {
         xhr.send()

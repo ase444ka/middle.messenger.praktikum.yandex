@@ -12,6 +12,7 @@ type FormElements = {
 
 export type FormBlockData = {
   readonly: boolean
+  action: 'signin' | 'signup'
   elements: FormElements
   linkText?: string
   linkHref?: string
@@ -58,10 +59,12 @@ const formEvents: EventListeners = {
 
 export default class FormBlock extends Block {
   controller: FormController
+  action: 'signin' | 'signup'
   constructor(data: FormBlockData) {
     super({...data, events: formEvents})
     this.controller = formController
     this._template = template
+    this.action = data.action
     this.init()
   }
 

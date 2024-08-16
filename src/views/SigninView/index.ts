@@ -2,16 +2,18 @@ import Block from '@/abstract/Block'
 import CardBlock from '@/blocks/auth/CardBlock'
 import FormBlock from '@/blocks/auth/FormBlock'
 import './style.css'
+import authController, {AuthController} from '@/controllers/Auth/auth'
 
 const form = new FormBlock({
   readonly: false,
+  action: 'signin',
   elements: {
     fields: [
       {
-        inputName: 'Почта',
-        fieldName: 'email',
+        inputName: 'Логин',
+        fieldName: 'login',
         readonly: false,
-        type: 'email',
+        type: 'name',
         inputClass: 'form__input',
       },
 
@@ -36,8 +38,10 @@ const template = /*jsx*/ `
 `
 
 export default class SigninView extends Block {
+  controller: AuthController
   constructor() {
     super({card})
+    this.controller = authController
     this._template = template
     this.init()
   }

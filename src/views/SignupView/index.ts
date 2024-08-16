@@ -5,6 +5,7 @@ import './style.css'
 
 const form = new FormBlock({
   readonly: false,
+  action: 'signup',
   elements: {
     fields: [
       {

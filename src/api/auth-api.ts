@@ -2,20 +2,31 @@ import HTTPTransport from '@/abstract/HTTPTransport'
 
 const authAPIInstance = new HTTPTransport('/auth')
 
-export class AuthAPI {
-  signup(data: {
-    first_name: string
-    second_name: string
-    login: string
-    email: string
-    password: string
-    phone: string
-  }) {
-    return authAPIInstance.post('/signup', {data})
+type FormDataTypes = {
+  first_name?: string
+  second_name?: string
+  login?: string
+  email?: string
+  password?: string
+  phone?: string
+}
+
+class AuthAPI {
+  async signup(data: FormDataTypes) {
+    const response = await authAPIInstance.post('/signup', {
+      data,
+    })
+    if (response instanceof XMLHttpRequest) {
+      const received = JSON.parse(response.response)
+      return received.id
+    } else {
+      throw new Error('Unknown response :(')
+    }
   }
 
-  signin(data: {login: string; password: string}) {
-    return authAPIInstance.post('/signin', {data})
+  async signin(data: FormDataTypes) {
+    await authAPIInstance.post('/signin', {data})
+    return true
   }
 
   getUser() {
@@ -26,3 +37,5 @@ export class AuthAPI {
     return authAPIInstance.post('/logout')
   }
 }
+
+export default new AuthAPI()

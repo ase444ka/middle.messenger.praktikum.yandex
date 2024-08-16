@@ -44,10 +44,12 @@ const formEvents: EventListeners = {
 }
 export default class ChatForm extends Block {
   controller: FormController
+  action: 'signin'
   constructor() {
     super({svgUrl1, svgUrl2, input: new ChatInput(), events: formEvents})
     this.controller = formController
     this._template = template
+    this.action = 'signin'
     this.init()
   }
 }
