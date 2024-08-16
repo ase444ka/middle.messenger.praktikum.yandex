@@ -1,6 +1,12 @@
 import Block, {BlockProps} from '@/abstract/Block'
 import render from '@/utils/render.js'
 
+import SignupView from '@/views/SignupView'
+import SigninView from '@/views/SigninView'
+import UserView from '@/views/UserView'
+import ErrorView from '@/views/ErrorView'
+import ChatView from '@/views/ChatView'
+
 class Route {
   pathname: string
   _pathname: string
@@ -42,7 +48,7 @@ class Route {
   }
 }
 
-export default class Router {
+class Router {
   static __instance: Router
   routes: Route[]
   history: History
@@ -106,3 +112,15 @@ export default class Router {
     return this.routes.find(route => route.match(pathname))
   }
 }
+
+const router = new Router('#app')
+
+router.use('/signin_page', SigninView)
+router.use('/signup_page', SignupView)
+router.use('/chats_page', ChatView)
+router.use('/user_page', UserView)
+router.use('/404_page', ErrorView)
+// Router.use('', SigninView)
+router.use('/', SigninView)
+
+export default router
