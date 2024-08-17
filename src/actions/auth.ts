@@ -36,10 +36,8 @@ export default {
 
   async getUser() {
     try {
-      // await authApi.logout()
       const data = await authApi.getUser()
-      console.log(data)
-      console.log('lololo')
+      store.set('userData', data)
     } catch (e) {
       console.error('bad :( ', e.message)
     }

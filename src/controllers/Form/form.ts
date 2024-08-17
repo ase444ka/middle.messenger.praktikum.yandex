@@ -2,7 +2,7 @@ import controller, {MainController} from '@/controllers/main'
 import FormBlock from '@/blocks/auth/FormBlock'
 import ChatForm from '@/blocks/chat/ChatForm'
 import validate, {Validation} from '@/utils/validate'
-import actions from '@/actions/auth'
+import actions from '@/actions'
 
 type FormDataTypes = {
   first_name?: string
