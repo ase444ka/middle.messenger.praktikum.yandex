@@ -14,7 +14,7 @@ type HTTPOptions = {
   withCredentials?: boolean
 }
 
-const baseUrl = 'http://ya-praktikum.tech/api/v2'
+const baseUrl = 'https://ya-praktikum.tech/api/v2'
 
 type RequestOptions = HTTPOptions & {method: keyof typeof METHODS}
 
@@ -110,7 +110,8 @@ export default class HTTPTransport {
       xhr.setRequestHeader('Content-Type', contentType)
       xhr.setRequestHeader('CORS', 'no-cors')
       console.log('cre', options.withCredentials)
-      xhr.withCredentials = !!options.withCredentials
+      // xhr.withCredentials = !!options.withCredentials
+      xhr.withCredentials = true
       // xhr.setRequestHeader('Authorization', 'Bearer ' + ????);
 
       if (method === METHODS.GET || !data) {
