@@ -1,4 +1,5 @@
 import controller, {MainController} from '@/controllers/main'
+import actions from '@/actions/auth'
 import router from '@/abstract/Router'
 
 export class AuthController {
@@ -9,6 +10,8 @@ export class AuthController {
   }
   registerEvents() {
     controller.on('login', () => {
+      console.log(document.cookie)
+      actions.getUser()
       router.go('/chats_page')
     })
   }

@@ -11,6 +11,7 @@ type HTTPOptions = {
   credendials?: 'include'
   headers?: {contentType?: string}
   timeout?: number
+  withCredentials?: boolean
 }
 
 const baseUrl = 'http://ya-praktikum.tech/api/v2'
@@ -36,7 +37,10 @@ function isSimpleObject(o: unknown): o is SimpleObj {
   return true
 }
 
-function queryStringify(data: RequestData) {
+function queryStringify(data?: RequestData) {
+  if (!data) {
+    return ''
+  }
   if (!isSimpleObject(data)) {
     throw new Error('Data must be object')
   }
@@ -104,6 +108,10 @@ export default class HTTPTransport {
 
       const contentType = headers?.contentType || 'application/json'
       xhr.setRequestHeader('Content-Type', contentType)
+      xhr.setRequestHeader('CORS', 'no-cors')
+      console.log('cre', options.withCredentials)
+      xhr.withCredentials = !!options.withCredentials
+      // xhr.setRequestHeader('Authorization', 'Bearer ' + ????);
 
       if (method === METHODS.GET || !data) {
         xhr.send()

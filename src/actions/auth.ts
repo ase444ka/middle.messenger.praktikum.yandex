@@ -33,4 +33,15 @@ export default {
       alert(e.message)
     }
   },
+
+  async getUser() {
+    try {
+      // await authApi.logout()
+      const data = await authApi.getUser()
+      console.log(data)
+      console.log('lololo')
+    } catch (e) {
+      console.error('bad :( ', e.message)
+    }
+  },
 }

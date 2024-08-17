@@ -15,6 +15,7 @@ class AuthAPI {
   async signup(data: FormDataTypes) {
     const response = await authAPIInstance.post('/signup', {
       data,
+      withCredentials: true,
     })
     if (response instanceof XMLHttpRequest) {
       const received = JSON.parse(response.response)
@@ -25,16 +26,23 @@ class AuthAPI {
   }
 
   async signin(data: FormDataTypes) {
-    await authAPIInstance.post('/signin', {data})
+    await authAPIInstance.post('/signin', {data, withCredentials: true})
     return true
   }
 
-  getUser() {
-    return authAPIInstance.get('/user')
+  async getUser() {
+    const response = await authAPIInstance.get('/user')
+    if (response instanceof XMLHttpRequest) {
+      console.log(response)
+      const received = JSON.parse(response.response)
+      return received
+    } else {
+      throw new Error('Unknown response :(')
+    }
   }
 
-  logout() {
-    return authAPIInstance.post('/logout')
+  async logout() {
+    await authAPIInstance.post('/logout')
   }
 }
 
