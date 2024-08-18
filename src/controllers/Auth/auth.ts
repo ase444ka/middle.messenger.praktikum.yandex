@@ -10,7 +10,6 @@ export class AuthController {
   }
   registerEvents() {
     controller.on('login', () => {
-      console.log(document.cookie)
       actions.getUser()
       router.go('/chats_page')
     })

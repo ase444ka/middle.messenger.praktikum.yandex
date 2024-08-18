@@ -42,6 +42,8 @@ function serializeForm(formNode: HTMLFormElement) {
     .map(element => {
       const {name, value, type} = element
 
+      console.log(name, ' - ', value, ' - ', type)
+
       return {name, value, type}
     })
   return data
@@ -59,7 +61,7 @@ const formEvents: EventListeners = {
 
 export default class FormBlock extends Block {
   controller: FormController
-  action: 'signin' | 'signup'
+  action: 'signin' | 'signup' | 'setUser'
   constructor(data: FormBlockData) {
     super({...data, events: formEvents})
     this.controller = formController

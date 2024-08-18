@@ -88,11 +88,12 @@ export const chatData: ChatViewData = {
 
 export const userFormData = {
   readonly: true,
+  action: 'setUser',
   elements: {
     fields: [
       {
         inputName: 'Почта',
-        txt: 'user@user',
+        // txt: 'user@user',
         fieldName: 'email',
         readonly: true,
         type: 'email',
@@ -100,7 +101,7 @@ export const userFormData = {
       },
       {
         inputName: 'Логин',
-        txt: 'Vasily',
+        // txt: 'Vasily',
         fieldName: 'login',
         readonly: true,
         type: 'name',
@@ -108,7 +109,7 @@ export const userFormData = {
       },
       {
         inputName: 'Имя',
-        txt: 'Вася',
+        // txt: 'Вася',
         fieldName: 'first_name',
         readonly: true,
         type: 'name',
@@ -116,7 +117,7 @@ export const userFormData = {
       },
       {
         inputName: 'Фамилия',
-        txt: 'Васин',
+        // txt: 'Васин',
         fieldName: 'second_name',
         readonly: true,
         type: 'name',
@@ -124,7 +125,7 @@ export const userFormData = {
       },
       {
         inputName: 'Телефон',
-        txt: '+98898983234',
+        // txt: '+98898983234',
         fieldName: 'phone',
         readonly: true,
         type: 'phone',
@@ -132,7 +133,7 @@ export const userFormData = {
       },
       {
         inputName: 'Пароль',
-        txt: 'kkkj1_-Dlj',
+        // txt: 'kkkj1_-Dlj',
         fieldName: 'password',
         readonly: true,
         type: 'password',
@@ -140,7 +141,7 @@ export const userFormData = {
       },
       {
         inputName: 'Пароль (еще раз)',
-        txt: 'kkkj1_-Dlj',
+        // txt: 'kkkj1_-Dlj',
         fieldName: 'password_2',
         readonly: true,
         type: 'password',
@@ -176,21 +177,21 @@ export const userPasswordData = {
     fields: [
       {
         inputName: 'Старый пароль',
-        txt: 'kkkj1_-Dlj',
+        // txt: 'kkkj1_-Dlj',
         fieldName: 'password',
         type: 'password',
         inputClass: 'userdata__input',
       },
       {
         inputName: 'Новый пароль',
-        txt: 'kkkj1_-Dlj',
+        // txt: 'kkkj1_-Dlj',
         fieldName: 'password_2',
         type: 'password',
         inputClass: 'userdata__input',
       },
       {
         inputName: 'Повторите новый пароль',
-        txt: 'kkkj1_-Dlj',
+        // txt: 'kkkj1_-Dlj',
         fieldName: 'password_3',
         type: 'password',
         inputClass: 'userdata__input',

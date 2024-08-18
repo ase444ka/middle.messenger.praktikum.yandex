@@ -11,6 +11,7 @@ type FormDataTypes = {
   email?: string
   password?: string
   phone?: string
+  display_name?: string
 }
 
 export class FormController {
@@ -29,6 +30,7 @@ export class FormController {
         console.log(`Проверка формы ${block.id} `)
         for (const entry of value) {
           try {
+            console.log(entry)
             validate(entry.type, entry.value)
           } catch (e) {
             alert(`Ошибка в поле "${entry.name}": ${e.message}`),
@@ -52,6 +54,7 @@ export class FormController {
         if (typeof data === 'boolean') {
           throw new Error('bad validation')
         } else {
+          console.log(data)
           actions[block.action](data)
         }
       },
